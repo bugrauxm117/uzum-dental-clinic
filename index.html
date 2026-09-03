@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Üzüm Dental Clinic — Ağız ve Diş Sağlığı | Şahinbey Gaziantep</title>
+<meta name="description" content="Gaziantep Şahinbey'de estetik diş hekimliği, implant, ortodonti ve diş beyazlatma. Ağrısız tedavi, dijital görüntüleme ve şeffaf fiyatlandırma. Hemen randevu alın.">
+<meta name="theme-color" content="#12325C">
+
+<!-- Sosyal medya paylaşım kartı -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Üzüm Dental Clinic — Ağız ve Diş Sağlığı">
+<meta property="og:description" content="Gülüşünüz, en iyi yatırımınız. Şahinbey Gaziantep'te modern diş kliniği.">
+<meta property="og:image" content="assets/images/og-kapak.jpg">
+<meta property="og:site_name" content="Üzüm Dental Clinic">
+<meta property="og:locale" content="tr_TR">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+<!-- Fontlar yerel (assets/fonts/) — Google'a istek gitmiyor -->
+<link rel="preload" href="assets/fonts/plus-jakarta-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
+<!-- latin-ext: ş Ş ğ Ğ İ bu dosyada. Preload edilmezse Türkçe metinde bu harfler geç gelir. -->
+<link rel="preload" href="assets/fonts/plus-jakarta-sans-latin-ext.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ============ SVG İKON KÜTÜPHANESİ (görünmez) ============ -->
+<svg style="display:none" aria-hidden="true">
+  <symbol id="i-tooth" viewBox="0 0 24 24"><path d="M12 3.2c-1.5 0-2.1.6-3.6.6C6.6 3.8 5.4 3 4.4 3.6 3 4.4 2.6 6.4 3 9c.3 2 .8 3 1.2 5 .4 1.9.3 4.6 1.5 5.7 1.3 1.1 2.1-.6 2.4-2.2.3-1.6.4-3.6 1.4-4.4.9-.7 2.1-.7 3 0 1 .8 1.1 2.8 1.4 4.4.3 1.6 1.1 3.3 2.4 2.2 1.2-1.1 1.1-3.8 1.5-5.7.4-2 .9-3 1.2-5 .4-2.6 0-4.6-1.4-5.4-1-.6-2.2.2-4 .2-1.5 0-2.1-.6-3.6-.6Z"/></symbol>
+  <symbol id="i-implant" viewBox="0 0 24 24"><path d="M12 2 8.5 5.5h7L12 2Zm-3.5 5.5h7v2h-7v-2Zm.5 3.5h6l-.6 3H9.6l-.6-3Zm.8 4.5h4.4l-.5 2.5H10.3l-.5-2.5Zm.7 4h3l-1.5 4-1.5-4Z"/></symbol>
+  <symbol id="i-braces" viewBox="0 0 24 24"><path d="M3 8h18v2.2H3V8Zm0 5.8h18V16H3v-2.2ZM6 6.5h2.4v11H6v-11Zm4.8 0h2.4v11h-2.4v-11Zm4.8 0H18v11h-2.4v-11Z"/></symbol>
+  <symbol id="i-sparkle" viewBox="0 0 24 24"><path d="M12 2.5 13.9 8 19.5 10 13.9 12 12 17.5 10.1 12 4.5 10 10.1 8 12 2.5Zm6.5 9.5.9 2.6 2.6.9-2.6.9-.9 2.6-.9-2.6-2.6-.9 2.6-.9.9-2.6ZM5 14l.7 2 2 .7-2 .7L5 19.4l-.7-2-2-.7 2-.7L5 14Z"/></symbol>
+  <symbol id="i-child" viewBox="0 0 24 24"><path d="M12 2a5 5 0 0 1 5 5v1a5 5 0 0 1-10 0V7a5 5 0 0 1 5-5Zm-1.6 5.2a.9.9 0 1 0 0 1.8.9.9 0 0 0 0-1.8Zm3.2 0a.9.9 0 1 0 0 1.8.9.9 0 0 0 0-1.8ZM4 22a8 8 0 0 1 16 0v.2H4V22Z"/></symbol>
+  <symbol id="i-scan" viewBox="0 0 24 24"><path d="M3 3h6v2.2H5.2V9H3V3Zm12 0h6v6h-2.2V5.2H15V3ZM3 15h2.2v3.8H9V21H3v-6Zm15.8 0H21v6h-6v-2.2h3.8V15ZM3.5 11.4h17v1.6h-17v-1.6Z"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 2 4 5.2v6.3c0 5 3.4 9.6 8 10.5 4.6-.9 8-5.5 8-10.5V5.2L12 2Zm3.9 7.2-4.7 5.9-3.1-3 1.4-1.5 1.6 1.5 3.3-4.2 1.5 1.3Z"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20.7 4.9 14a4.9 4.9 0 0 1 0-7.1 4.9 4.9 0 0 1 7.1 0 4.9 4.9 0 0 1 7.1 0 4.9 4.9 0 0 1 0 7.1L12 20.7Z"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm.9 4.6v5.1l4 2.4-.9 1.5-5-3V6.6h1.9Z"/></symbol>
+  <symbol id="i-wallet" viewBox="0 0 24 24"><path d="M3 6.5A2.5 2.5 0 0 1 5.5 4h11A2.5 2.5 0 0 1 19 6.5V7H5.5a.5.5 0 0 0 0 1H20a1 1 0 0 1 1 1v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6.5ZM16 12.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3Z"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5Z"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M6.6 3h3l1.6 4-2.1 1.5a12 12 0 0 0 5.4 5.4L16 11.8l4 1.6v3a2 2 0 0 1-2.2 2C10.4 17.7 6.3 13.6 4.6 5.2A2 2 0 0 1 6.6 3Z"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><path d="M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Zm1.6 2L12 12.2 19.4 7H4.6Z"/></symbol>
+  <symbol id="i-wa" viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2Zm5.3 14c-.2.6-1.2 1.2-1.7 1.2-.5.1-1 .1-1.6-.1a13 13 0 0 1-5-4.4c-.4-.5-1-1.4-1-2.7s.7-1.9 1-2.2c.2-.2.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2 0 .4-.1.5l-.4.5c-.1.2-.3.3-.1.6.4.7 1 1.4 1.6 1.9.6.4 1 .6 1.2.7.2 0 .3 0 .5-.2l.7-.8c.2-.2.3-.2.5-.1l2 1c.2.1.4.2.4.3.1.2.1.6 0 1.1Z"/></symbol>
+  <symbol id="i-ig" viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.8.3 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c-.1 1.2-.3 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2-.1-1.8-.3-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2-.1-1.3-.1-1.7-.1-4.9s0-3.6.1-4.9c.1-1.2.3-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4 1.3-.1 1.7-.1 4.9-.1Zm0 3.8a6 6 0 1 0 0 12 6 6 0 0 0 0-12Zm0 2.2a3.8 3.8 0 1 1 0 7.6 3.8 3.8 0 0 1 0-7.6Zm6.2-3.9a1.4 1.4 0 1 0 0 2.8 1.4 1.4 0 0 0 0-2.8Z"/></symbol>
+  <symbol id="i-fb" viewBox="0 0 24 24"><path d="M13.5 22v-8.2h2.8l.4-3.2h-3.2V8.5c0-.9.3-1.6 1.6-1.6h1.7V4c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.3v2.4H7.3v3.2h2.8V22h3.4Z"/></symbol>
+  <symbol id="i-yt" viewBox="0 0 24 24"><path d="M21.6 7.2c-.2-.9-.9-1.6-1.8-1.8C18.2 5 12 5 12 5s-6.2 0-7.8.4c-.9.2-1.6.9-1.8 1.8C2 8.8 2 12 2 12s0 3.2.4 4.8c.2.9.9 1.6 1.8 1.8C5.8 19 12 19 12 19s6.2 0 7.8-.4c.9-.2 1.6-.9 1.8-1.8.4-1.6.4-4.8.4-4.8s0-3.2-.4-4.8ZM10 15.1V8.9l5.2 3.1-5.2 3.1Z"/></symbol>
+  <symbol id="i-tiktok" viewBox="0 0 24 24"><path d="M16.5 2h-3v13.2a2.6 2.6 0 1 1-2.1-2.5V9.6a5.9 5.9 0 1 0 5.1 5.8V8.9a6.7 6.7 0 0 0 3.9 1.2V7a3.9 3.9 0 0 1-3.9-3.9V2Z"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path d="m12 17.3-6.2 3.5 1.4-7-5.2-4.8 7-.8L12 1.7l3 6.5 7 .8-5.2 4.8 1.4 7-6.2-3.5Z"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M13.2 4.6 20.6 12l-7.4 7.4-1.6-1.6 4.7-4.7H3.4v-2.2h12.9l-4.7-4.7 1.6-1.6Z"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M9.6 16.6 5 12l1.6-1.6 3 3 7.8-7.8L19 7.2 9.6 16.6Z"/></symbol>
+</svg>
+
+<a class="skip-link" href="#main">İçeriğe geç</a>
+
+<!-- ================= ÜST BİLGİ ŞERİDİ ================= -->
+<div class="topbar">
+  <div class="wrap topbar__in">
+    <span class="topbar__item"><svg class="ic"><use href="#i-pin"/></svg><span data-site="addressFull"></span></span>
+    <span class="topbar__item"><svg class="ic"><use href="#i-clock"/></svg><span class="js-openNow" data-site="hoursShort"></span></span>
+    <a class="topbar__item topbar__phone" data-site-href="tel"><svg class="ic"><use href="#i-phone"/></svg><span data-site="phoneDisplay"></span></a>
+  </div>
+</div>
+
+<!-- ================= HEADER ================= -->
+<header class="header" id="header">
+  <div class="wrap header__in">
+    <a href="#hero" class="logo" aria-label="Ana sayfa">
+      <img class="logo__img" src="assets/images/logo.png" alt="Üzüm Dental Clinic" width="1583" height="604">
+    </a>
+
+    <nav class="nav" id="nav" aria-label="Ana menü">
+      <!-- Menü linkleri js/config.js > menu dizisinden basılır -->
+      <div class="nav__mobileCta">
+        <a class="btn btn--wa btn--block" data-site-href="wa" target="_blank" rel="noopener">
+          <svg class="ic"><use href="#i-wa"/></svg> WhatsApp'tan Yaz
+        </a>
+        <a class="btn btn--primary btn--block" href="#iletisim">Randevu Al</a>
+      </div>
+    </nav>
+
+    <div class="header__actions">
+      <a class="btn btn--ghost btn--icon-only" data-site-href="tel" aria-label="Telefonla ara">
+        <svg class="ic"><use href="#i-phone"/></svg>
+      </a>
+      <a class="btn btn--primary" href="#iletisim">
+        Randevu Al <svg class="ic"><use href="#i-arrow"/></svg>
+      </a>
+      <button class="burger" id="burger" aria-label="Menüyü aç" aria-expanded="false" aria-controls="nav">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- ================= HERO ================= -->
+<section class="hero" id="hero">
+  <div class="hero__glow" aria-hidden="true"></div>
+  <div class="wrap hero__in">
+
+    <div class="hero__copy">
+      <span class="chip"><span class="chip__dot"></span> Ön görüşme ve muayene için randevu alın</span>
+
+      <!-- Satirlar <br> yerine blok <span>: metin AYNI, ama her satir
+           giriste ayri ayri belirebiliyor (css: .hero__line). -->
+      <h1 class="hero__title">
+        <span class="hero__line">Sağlıklı dişler.</span>
+        <span class="hero__line">Kendinden emin bir <span class="hero__accent">gülüş.</span></span>
+      </h1>
+
+      <p class="hero__sub">
+        Dijital görüntüleme ve ağrısız tedavi protokolleriyle; implanttan ortodontiye,
+        estetik gülüş tasarımından çocuk diş hekimliğine kadar tüm ihtiyaçlarınız tek çatı altında.
+      </p>
+
+      <div class="hero__cta">
+        <a class="btn btn--primary btn--lg" href="#iletisim">
+          Randevu Al <svg class="ic"><use href="#i-arrow"/></svg>
+        </a>
+        <a class="btn btn--wa btn--lg" data-site-href="wa" target="_blank" rel="noopener">
+          <svg class="ic"><use href="#i-wa"/></svg> WhatsApp'tan Sor
+        </a>
+      </div>
+
+      <ul class="tickList hero__facts">
+        <li><svg class="ic"><use href="#i-check"/></svg> Her hasta için tek kullanımlık steril set</li>
+        <li><svg class="ic"><use href="#i-check"/></svg> Dijital görüntüleme ile teşhis</li>
+        <li><svg class="ic"><use href="#i-check"/></svg> Tedavi öncesi yazılı plan</li>
+      </ul>
+    </div>
+
+    <div class="hero__visual">
+      <!-- FOTOĞRAF: klinik-hero.jpg — değiştirmek için aynı isimle 4:5 dikey bir .jpg koyun -->
+      <div class="photo photo--hero" data-photo="Klinik / hekim fotoğrafı">
+        <img src="assets/images/klinik-hero.jpg" alt="Üzüm Dental Clinic muayene odasında hasta muayenesi" width="1122" height="1402" fetchpriority="high">
+      </div>
+
+      <div class="floatCard floatCard--a">
+        <span class="floatCard__ico"><svg class="ic"><use href="#i-shield"/></svg></span>
+        <div>
+          <strong>Steril Ortam</strong>
+          <small>Tek kullanımlık set garantisi</small>
+        </div>
+      </div>
+
+      <div class="floatCard floatCard--b">
+        <strong class="floatCard__big">Randevu Saatleri</strong>
+        <!-- İki gösterim de TEK kaynaktan (js/config.js > hours) beslenir:
+             masaüstünde tek satırlık özet (hoursShort), ≤640px'te gün/saat
+             listesi (js/main.js > buildHeroHours). Saat bilgisi buraya elle
+             yazılmaz. -->
+        <p class="floatCard__hours" data-site="hoursShort"></p>
+        <ul class="floatCard__days" id="heroHours"></ul>
+        <a class="floatCard__link" href="#iletisim">Randevu talebi <svg class="ic"><use href="#i-arrow"/></svg></a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- İstatistik şeridi -->
+  <div class="wrap">
+    <div class="stats" id="stats"></div>
+  </div>
+</section>
+
+<!-- ================= HİZMETLER ================= -->
+<section class="section" id="hizmetler">
+  <div class="wrap">
+    <header class="secHead reveal">
+      <span class="eyebrow">Tedavilerimiz</span>
+      <h2 class="secTitle">İhtiyacınız olan her tedavi, <em>tek çatı altında</em></h2>
+      <p class="secLead">Koruyucu hekimlikten ileri cerrahiye kadar geniş bir yelpazede hizmet veriyoruz.</p>
+    </header>
+
+    <!-- Kart görselleri: assets/images/tedavi-*.jpg (3:2). Görsel yüklenmezse
+         js/main.js > guardCardMedia() .card__media bloğunu gizler, kart
+         ikonlu hâline döner. alt="" bilerek boş: kart başlığı hemen altında. -->
+    <div class="cards">
+      <article class="card reveal">
+        <figure class="card__media">
+          <img src="assets/images/tedavi-implant.jpg" alt="" width="1200" height="800" loading="lazy">
+        </figure>
+        <div class="card__body">
+          <span class="card__ico"><svg class="ic"><use href="#i-implant"/></svg></span>
+          <h3>İmplant Tedavisi</h3>
+          <p>Eksik dişleriniz için doğal görünümlü, ömür boyu kullanılabilen kalıcı çözümler.</p>
+          <a class="card__link" href="implant-tedavisi.html">Ayrıntılı bilgi <svg class="ic"><use href="#i-arrow"/></svg></a>
+        </div>
+      </article>
+
+      <article class="card reveal">
+        <figure class="card__media">
+          <img src="assets/images/tedavi-gulus.jpg" alt="" width="1200" height="800" loading="lazy">
+        </figure>
+        <div class="card__body">
+          <span class="card__ico"><svg class="ic"><use href="#i-sparkle"/></svg></span>
+          <h3>Gülüş Tasarımı</h3>
+          <p>Yüz hatlarınıza özel dijital simülasyon ile tedaviden önce sonucu görün.</p>
+          <a class="card__link" href="gulus-tasarimi.html">Ayrıntılı bilgi <svg class="ic"><use href="#i-arrow"/></svg></a>
+        </div>
+      </article>
+
+      <article class="card reveal">
+        <figure class="card__media">
+          <img src="assets/images/tedavi-ortodonti.jpg" alt="" width="1200" height="800" loading="lazy">
+        </figure>
+        <div class="card__body">
+          <span class="card__ico"><svg class="ic"><use href="#i-braces"/></svg></span>
+          <h3>Ortodonti</h3>
+          <p>Şeffaf plak veya telli tedavi ile diş ve çene düzensizliklerinin kalıcı çözümü.</p>
+          <a class="card__link" href="ortodonti.html">Ayrıntılı bilgi <svg class="ic"><use href="#i-arrow"/></svg></a>
+        </div>
+      </article>
+
+      <article class="card reveal">
+        <figure class="card__media">
+          <img src="assets/images/tedavi-beyazlatma.jpg" alt="" width="1200" height="800" loading="lazy">
+        </figure>
+        <div class="card__body">
+          <span class="card__ico"><svg class="ic"><use href="#i-tooth"/></svg></span>
+          <h3>Diş Beyazlatma</h3>
+          <p>Tek seansta 4–6 ton daha beyaz dişler; mine dostu, hassasiyetsiz protokol.</p>
+          <a class="card__link" href="dis-beyazlatma.html">Ayrıntılı bilgi <svg class="ic"><use href="#i-arrow"/></svg></a>
+        </div>
+      </article>
+
+      <article class="card reveal">
+        <figure class="card__media">
+          <img src="assets/images/tedavi-cocuk.jpg" alt="" width="1200" height="800" loading="lazy">
+        </figure>
+        <div class="card__body">
+          <span class="card__ico"><svg class="ic"><use href="#i-child"/></svg></span>
+          <h3>Çocuk Diş Hekimliği</h3>
+          <p>Korkusuz, oyunlaştırılmış yaklaşımla çocuklarınıza pozitif ilk deneyim.</p>
+          <a class="card__link" href="cocuk-dis-hekimligi.html">Ayrıntılı bilgi <svg class="ic"><use href="#i-arrow"/></svg></a>
+        </div>
+      </article>
+
+      <article class="card reveal">
+        <figure class="card__media">
+          <img src="assets/images/tedavi-kanal.jpg" alt="" width="1200" height="800" loading="lazy">
+        </figure>
+        <div class="card__body">
+          <span class="card__ico"><svg class="ic"><use href="#i-shield"/></svg></span>
+          <h3>Kanal & Diş Eti</h3>
+          <p>Mikroskop destekli kanal tedavisi ve lazerle diş eti hastalığı yönetimi.</p>
+          <a class="card__link" href="kanal-ve-dis-eti.html">Ayrıntılı bilgi <svg class="ic"><use href="#i-arrow"/></svg></a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= HAKKIMIZDA ================= -->
+<section class="section section--alt" id="hakkimizda">
+  <div class="wrap about">
+    <div class="about__media reveal">
+      <!-- FOTOĞRAF: dt-mustafa-birhan.jpg (1086x1448). Kadraj .photo--about img
+           kuralındaki scale/transform-origin ile yüze göre ayarlı. -->
+      <div class="photo photo--about" data-photo="Hekim portresi">
+        <img src="assets/images/dt-mustafa-birhan.jpg" alt="Dt. Mustafa Birhan Üzüm, Üzüm Dental Clinic muayene odasında" width="1086" height="1448" loading="lazy">
+      </div>
+      <div class="badgeCard">
+        <span class="badgeCard__num"></span>
+        <span class="badgeCard__txt">yıllık<br>klinik deneyim</span>
+      </div>
+    </div>
+
+    <div class="about__copy reveal">
+      <span class="eyebrow">Hakkımızda</span>
+      <h2 class="secTitle">Tedaviden önce <em>güven</em> inşa ediyoruz</h2>
+      <p>
+        <span class="js-since" hidden><span data-site="sinceYear"></span>'ten bu yana</span>
+        Şahinbey/Gaziantep'te hizmet veriyoruz. Bizim için iyi bir tedavi; doğru teşhis,
+        anlaşılır bir plan ve hastanın kendini rahat hissettiği bir ortamla başlar. Her hastamıza
+        tedavi öncesinde tüm seçenekleri, süreleri ve maliyetleri yazılı olarak sunuyoruz.
+      </p>
+      <ul class="tickList">
+        <li><svg class="ic"><use href="#i-check"/></svg> Hekim başına sınırlı hasta, uzun muayene süresi</li>
+        <li><svg class="ic"><use href="#i-check"/></svg> Avrupa standartlarında sterilizasyon protokolü</li>
+        <li><svg class="ic"><use href="#i-check"/></svg> Tedavi sonrası düzenli kontrol ve hatırlatma</li>
+        <li><svg class="ic"><use href="#i-check"/></svg> Şehir dışından gelen hastalar için önceden seans planlaması</li>
+      </ul>
+
+      <!-- HEKİM KARTI — 21st.dev Profile Card fikrinin siteye uyarlanmış hâli.
+           Ad, unvan ve künyenin tamamı js/config.js'ten gelir; künye
+           (doctorCredentials) boşken kendiliğinden gizlenir. -->
+      <div class="docCard reveal">
+        <div class="docCard__head">
+          <span class="docCard__avatar">
+            <!-- Ad hemen yanında yazdığı için görsel dekoratif: alt bilerek boş,
+                 ekran okuyucu aynı bilgiyi iki kez okumasın. -->
+            <img src="assets/images/dt-mustafa-birhan.jpg" alt="" width="1086" height="1448" loading="lazy">
+          </span>
+          <div class="docCard__id">
+            <strong data-site="doctorName"></strong>
+            <small data-site="doctorTitle"></small>
+          </div>
+        </div>
+
+        <!-- Hekim künyesi: js/config.js > doctorCredentials — boşken gizli -->
+        <dl class="credCard" id="credCard" hidden></dl>
+
+        <a class="btn btn--outline docCard__cta" href="#iletisim">
+          Muayene randevusu <svg class="ic"><use href="#i-arrow"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SÜREÇ ================= -->
+<section class="section" id="surec">
+  <div class="wrap">
+    <header class="secHead reveal">
+      <span class="eyebrow">Nasıl İlerliyoruz</span>
+      <h2 class="secTitle">4 adımda <em>net</em> bir tedavi yolculuğu</h2>
+      <p class="secLead">Belirsizlik bırakmıyoruz. İlk telefondan son kontrole kadar her aşamayı önceden biliyorsunuz.</p>
+    </header>
+
+    <!-- "steps--journey" yalnızca bu sayfada: temel .steps/.step kuralları
+         6 tedavi sayfasında da kullanılıyor, onlar eski görünümde kalsın. -->
+    <ol class="steps steps--journey">
+      <li class="step reveal">
+        <span class="step__ico"><svg class="ic" aria-hidden="true"><use href="#i-scan"/></svg></span>
+        <div class="step__panel">
+          <span class="step__num">01</span>
+          <h3>Muayene &amp; Görüntüleme</h3>
+          <p>WhatsApp veya telefonla randevunuzu alın; muayenede şikâyetiniz değerlendirilir, panoramik röntgen, 3B tomografi ve ağız içi tarama ile gerekli görüntülemeler yapılır.</p>
+        </div>
+      </li>
+      <li class="step reveal">
+        <span class="step__ico"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg></span>
+        <div class="step__panel">
+          <span class="step__num">02</span>
+          <h3>Tedavi Planı</h3>
+          <p>Muayene sonuçlarına göre size uygun tedavi planı oluşturulur; alternatifler, süre ve maliyet yazılı olarak paylaşılır.</p>
+        </div>
+      </li>
+      <li class="step reveal">
+        <span class="step__ico"><svg class="ic" aria-hidden="true"><use href="#i-tooth"/></svg></span>
+        <div class="step__panel">
+          <span class="step__num">03</span>
+          <h3>Tedavi Uygulaması</h3>
+          <p>Onayladığınız plan, belirlenen seans takvimine göre uygulanır.</p>
+        </div>
+      </li>
+      <li class="step reveal">
+        <span class="step__ico"><svg class="ic" aria-hidden="true"><use href="#i-clock"/></svg></span>
+        <div class="step__panel">
+          <span class="step__num">04</span>
+          <h3>Kontrol &amp; Takip</h3>
+          <p>Tedavi sonrası kontroller yapılır ve 6 aylık kontrol takvimine alınırsınız.</p>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ================= ÖNCESİ / SONRASI ================= -->
+<section class="section section--alt" id="sonuclar">
+  <div class="wrap">
+    <header class="secHead reveal">
+      <span class="eyebrow">Öncesi / Sonrası</span>
+      <h2 class="secTitle">Gerçek hastalar, <em>gerçek sonuçlar</em></h2>
+      <p class="secLead">Kaydırıcıyı sürükleyerek tedavi öncesi ve sonrasını karşılaştırın. Tüm görseller hasta onayıyla paylaşılmıştır.</p>
+    </header>
+
+    <!-- Vakalar js/config.js > cases dizisinden gelir (yazılı hasta onayı şart) -->
+    <div class="baGrid"></div>
+  </div>
+</section>
+
+<!-- ================= YORUMLAR ================= -->
+<section class="section" id="yorumlar">
+  <div class="wrap">
+    <header class="secHead reveal">
+      <span class="eyebrow">Hasta Yorumları</span>
+      <h2 class="secTitle">Bizi en iyi <em>hastalarımız</em> anlatır</h2>
+    </header>
+
+    <!-- Yorumlar js/config.js > reviews dizisinden gelir (yalnızca gerçek yorumlar) -->
+    <div class="quotes"></div>
+  </div>
+</section>
+
+<!-- ================= S.S.S. ================= -->
+<section class="section section--alt" id="sss">
+  <div class="wrap faqWrap">
+    <div class="faqAside reveal">
+      <span class="eyebrow">Sık Sorulanlar</span>
+      <h2 class="secTitle">Aklınıza takılanlar</h2>
+      <p class="secLead">Sorunuzun cevabını bulamadıysanız WhatsApp'tan yazın, aynı gün dönüş yapalım.</p>
+      <a class="btn btn--wa" data-site-href="wa" target="_blank" rel="noopener">
+        <svg class="ic"><use href="#i-wa"/></svg> Soru Sor
+      </a>
+    </div>
+
+    <!-- .reveal ARTIK tek tek satirlarda degil kapsayicida: altigi satir
+         panelin icinde birlikte beliriyor. Onceki halinde son iki soru
+         gorunume girmeden opacity:0 kaliyordu (render'da olculdu). -->
+    <div class="faq reveal">
+      <details class="faq__item" open>
+        <summary>İlk muayenede neler yapılıyor?</summary>
+        <div class="faq__body"><p>Muayene ve gerekli görüntülemeler değerlendirilir; ardından size uygun tedavi seçenekleri ve süreç açıklanır.</p></div>
+      </details>
+      <details class="faq__item">
+        <summary>İmplant tedavisi herkese uygulanabilir mi?</summary>
+        <div class="faq__body"><p>Uygunluk; ağız sağlığı, kemik yapısı ve genel durum değerlendirilerek belirlenir. Karar muayene sonrasında verilir.</p></div>
+      </details>
+      <details class="faq__item">
+        <summary>Diş beyazlatma güvenli mi?</summary>
+        <div class="faq__body"><p>Diş hekimi kontrolünde, uygun hastalarda uygulanan profesyonel beyazlatma güvenli bir seçenektir. Geçici hassasiyet görülebilir.</p></div>
+      </details>
+      <details class="faq__item">
+        <summary>Tedavi ne kadar sürer?</summary>
+        <div class="faq__body"><p>Süre, uygulanacak tedaviye ve kişisel ihtiyaçlara göre değişir. Muayene sonrasında yaklaşık süreç sizinle paylaşılır.</p></div>
+      </details>
+      <details class="faq__item">
+        <summary>Tedavi fiyatı nasıl belirleniyor?</summary>
+        <div class="faq__body"><p>Ücret, muayene ve gerekli görüntülemeler sonrasında belirlenen kişisel tedavi planına göre netleştirilir.</p></div>
+      </details>
+      <details class="faq__item">
+        <summary>Randevu nasıl alabilirim?</summary>
+        <div class="faq__body"><p>Telefon veya WhatsApp üzerinden bize ulaşarak uygun gün ve saat için randevu oluşturabilirsiniz.</p></div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ================= İLETİŞİM ================= -->
+<section class="section section--alt" id="iletisim">
+  <div class="wrap">
+    <header class="secHead reveal">
+      <span class="eyebrow">İletişim</span>
+      <h2 class="secTitle">Kliniğimize <em>bekleriz</em></h2>
+      <p class="secLead">Randevu ve sorularınız için en hızlı yol telefon ya da WhatsApp; dilerseniz yol tarifiyle doğrudan kliniğe gelin.</p>
+    </header>
+
+    <div class="contact">
+      <!-- TEK PANEL: onceki hâlde bes ayri buyuk kart alt alta diziliyordu ve
+           mobilde bolum gereksiz uzuyordu. Butun veriler yine js/config.js'ten
+           geliyor (data-site / data-site-href); hicbir numara, adres ya da saat
+           buraya elle yazilmadi. #hoursTable korundu — buildHours() onu doldurur. -->
+      <div class="contact__panel reveal">
+
+        <div class="cPanel__acts">
+          <a class="btn btn--primary" data-site-href="tel">
+            <svg class="ic"><use href="#i-phone"/></svg> Hemen Ara
+          </a>
+          <a class="btn btn--wa" data-site-href="wa" target="_blank" rel="noopener">
+            <svg class="ic"><use href="#i-wa"/></svg> WhatsApp'tan Yaz
+          </a>
+          <p class="cPanel__note">Sorularınızı yazın, aynı gün dönüş yapalım.</p>
+        </div>
+
+        <a class="cRow" data-site-href="maps" target="_blank" rel="noopener">
+          <span class="cRow__ico"><svg class="ic"><use href="#i-pin"/></svg></span>
+          <div class="cRow__body">
+            <span class="cRow__label">Adres</span>
+            <span class="cRow__val"><span data-site="addressLine"></span><br><span data-site="addressCity"></span></span>
+            <span class="cRow__cta">Yol tarifi al <svg class="ic"><use href="#i-arrow"/></svg></span>
+          </div>
+        </a>
+
+        <a class="cRow" data-site-href="tel">
+          <span class="cRow__ico"><svg class="ic"><use href="#i-phone"/></svg></span>
+          <div class="cRow__body">
+            <span class="cRow__label">Telefon</span>
+            <span class="cRow__val cRow__val--big" data-site="phoneDisplay"></span>
+          </div>
+          <span class="cRow__go"><svg class="ic"><use href="#i-arrow"/></svg></span>
+        </a>
+
+        <a class="cRow" data-site-href="mail">
+          <span class="cRow__ico"><svg class="ic"><use href="#i-mail"/></svg></span>
+          <div class="cRow__body">
+            <span class="cRow__label">E-posta</span>
+            <span class="cRow__val" data-site="email"></span>
+          </div>
+          <span class="cRow__go"><svg class="ic"><use href="#i-arrow"/></svg></span>
+        </a>
+
+        <div class="cRow cRow--static">
+          <span class="cRow__ico"><svg class="ic"><use href="#i-clock"/></svg></span>
+          <div class="cRow__body">
+            <span class="cRow__label">Çalışma Saatleri</span>
+            <table class="hours" id="hoursTable"></table>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="contact__map reveal">
+        <!-- HARİTA: Google Maps > Paylaş > Harita yerleştir > <iframe> kodunu buraya yapıştırın -->
+        <div class="mapPlaceholder">
+          <span class="mapPlaceholder__pin"><svg class="ic"><use href="#i-pin"/></svg></span>
+          <strong data-site="brandFull"></strong>
+          <p><span data-site="addressLine"></span> · <span data-site="addressCity"></span></p>
+          <a class="btn btn--primary" data-site-href="maps" target="_blank" rel="noopener">
+            Google Maps'te Aç <svg class="ic"><use href="#i-arrow"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CTA ŞERİDİ ================= -->
+<section class="ctaStrip">
+  <img class="ctaStrip__bg" src="assets/images/gulus.jpg" alt="" aria-hidden="true" width="1600" height="900" loading="lazy">
+  <div class="wrap ctaStrip__in">
+    <div>
+      <h2>Diş ağrınızı yarına bırakmayın</h2>
+      <p>Bugün için hâlâ birkaç uygun saatimiz var. Bir mesaj yeterli.</p>
+    </div>
+    <div class="ctaStrip__btns">
+      <a class="btn btn--light btn--lg" data-site-href="wa" target="_blank" rel="noopener">
+        <svg class="ic"><use href="#i-wa"/></svg> WhatsApp'tan Yaz
+      </a>
+      <a class="btn btn--outlineLight btn--lg" data-site-href="tel">
+        <svg class="ic"><use href="#i-phone"/></svg> <span data-site="phoneDisplay"></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ================= FOOTER ================= -->
+<!-- Footer js/config.js > menu dizisinden basılır -->
+<footer class="footer" id="footer"></footer>
+
+<!-- ================= YÜZEN BUTONLAR ================= -->
+<a class="waFab" data-site-href="wa" target="_blank" rel="noopener" aria-label="WhatsApp'tan yazın">
+  <svg class="ic"><use href="#i-wa"/></svg>
+  <span class="waFab__label">WhatsApp'tan Yaz</span>
+</a>
+
+<button class="toTop" id="toTop" aria-label="Yukarı çık">
+  <svg class="ic"><use href="#i-arrow"/></svg>
+</button>
+
+<script src="js/config.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

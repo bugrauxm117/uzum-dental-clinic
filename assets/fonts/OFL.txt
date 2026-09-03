@@ -1,0 +1,15 @@
+SIL OPEN FONT LICENSE Version 1.1
+=================================
+
+Bu klasördeki font dosyaları SIL Open Font License 1.1 ile lisanslanmıştır;
+web sitesinde barındırılmaları (self-hosting) serbesttir.
+
+  Plus Jakarta Sans — Copyright (c) Tokotype
+  https://fonts.google.com/specimen/Plus+Jakarta+Sans
+
+Lisansın tam metni: https://openfontlicense.org
+
+Dosyalar Google Fonts API'sinden latin ve latin-ext alt kümeleriyle
+indirilmiştir. Yeniden indirmek gerekirse:
+
+  https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400..800&display=swap

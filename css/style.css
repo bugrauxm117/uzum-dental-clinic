@@ -1,0 +1,1785 @@
+/* =========================================================
+   ÜZÜM DENTAL CLINIC — Stil Dosyası
+   Palet doğrudan logodan alınmıştır:
+   lacivert #12325C · turkuaz #16A9A3 · açık gri #DCE3E7
+   ========================================================= */
+
+/* ---------- 0. FONTLAR (yerel) ----------
+   Google Fonts CDN'den değil, assets/fonts/ içinden yükleniyor:
+   ziyaretçinin IP'si Google'a gitmiyor ve sayfa daha erken çiziliyor.
+   Sitenin TEK yazi tipi: Plus Jakarta Sans degisken font (400-800 tek
+   dosya), yalnizca latin + latin-ext alt kumeleri — Turkce karakterler
+   latin-ext'te. SIL Open Font License 1.1 ile lisansli, bkz.
+   assets/fonts/OFL.txt
+   ---------------------------------------- */
+/* latin-ext */
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url(../assets/fonts/plus-jakarta-sans-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url(../assets/fonts/plus-jakarta-sans-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* ---------- 1. TOKENLAR ---------- */
+:root{
+  --navy-900:#0B2242;
+  --navy:#12325C;
+  --navy-700:#1A4478;
+  --navy-100:#E7EDF5;
+  --navy-50:#F2F6FA;
+
+  --teal:#16A9A3;
+  --teal-700:#0D7D79;   /* metin rengi: beyaz/kağıt zeminde 4.5:1 üstü (WCAG AA) */
+  --teal-100:#D6F0EE;
+  --teal-50:#EAF7F6;
+
+  --mist:#DCE3E7;
+  --paper:#FCFBF9;
+  --paper-2:#F4F7F8;
+
+  --body:#4C5D71;
+  --muted:#627182;      /* ikincil metin: beyaz/kağıt zeminde 4.5:1 üstü (WCAG AA) */
+  --gold:#DFA83C;
+  --err:#C6392F;
+  --wa:#0C7A59;
+  --wa-700:#095E45;
+
+  --r-sm:10px;
+  --r:16px;
+  --r-lg:24px;
+  --r-xl:34px;
+  --pill:999px;
+  /* Butonlar icin olculu kose. Tam pill (--pill) buton grubunu tuketici
+     uygulamasi gibi gosteriyordu; 14px klinik/kurumsal duruyor ve mevcut
+     yaricap olceginin (10 / 16 / 24 / 34) icine oturuyor. Chip, waFab,
+     toTop ve carousel oklari pill/daire kalmaya devam eder. */
+  --r-btn:14px;
+
+  --sh-sm:0 1px 2px rgba(11,34,66,.05), 0 3px 10px rgba(11,34,66,.05);
+  --sh:0 4px 14px rgba(11,34,66,.06), 0 20px 44px -20px rgba(11,34,66,.24);
+  --sh-lg:0 34px 90px -34px rgba(11,34,66,.42);
+
+  --wrap:1200px;
+  --gut:24px;
+  --t:.35s cubic-bezier(.22,.61,.36,1);
+
+  --font:"Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+}
+
+/* ---------- 2. RESET ---------- */
+*,*::before,*::after{box-sizing:border-box}
+*{margin:0;padding:0}
+/* --headerH: yapışkan header'ın GERÇEK yüksekligi, js/main.js > headerOlc()
+   tarafından yazılır (masaüstü 81px, ≤1080px 71px). Buraya ek bir sabit
+   EKLENMEZ: JS yolundaki hedefY = rect.top + scrollY - headerH formülüyle
+   birebir aynı noktayı verir, böylece iki yol çakışsa bile aynı yeri
+   hedefler. JS çalışmazsa yedek 96px devreye girer. */
+html{scroll-behavior:smooth;scroll-padding-top:var(--headerH, 96px);-webkit-text-size-adjust:100%}
+body{
+  font-family:var(--font);
+  font-size:17px;
+  line-height:1.7;
+  color:var(--body);
+  background:var(--paper);
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+body.is-locked{overflow:hidden}
+img,svg{display:block;max-width:100%}
+/* Verisi olmayan bölümler JS'te hidden ile kapanır — display kurallarını yensin */
+[hidden]{display:none!important}
+a{color:inherit;text-decoration:none}
+button,input,select,textarea{font:inherit;color:inherit}
+button{background:none;border:0;cursor:pointer}
+ul,ol{list-style:none}
+h1,h2,h3,h4{color:var(--navy-900);line-height:1.15;letter-spacing:-.02em;font-weight:800}
+::selection{background:var(--teal);color:#fff}
+
+.skip-link{
+  position:absolute;left:-9999px;top:0;z-index:999;
+  background:var(--navy);color:#fff;padding:12px 20px;border-radius:0 0 var(--r-sm) 0;
+}
+.skip-link:focus{left:0}
+
+:is(a,button,input,select,textarea,summary,[tabindex]):focus-visible{
+  outline:3px solid var(--teal);
+  outline-offset:3px;
+  border-radius:6px;
+}
+
+/* ---------- 3. YARDIMCILAR ---------- */
+.wrap{width:100%;max-width:var(--wrap);margin-inline:auto;padding-inline:var(--gut)}
+
+.section{padding:clamp(64px,8.5vw,118px) 0}
+.section--tight{padding:clamp(40px,5vw,64px) 0}
+.section--alt{background:var(--paper-2)}
+/* Bolum ritmi: "Sonuclar" ve "Yorumlar" verisi bos oldugunda JS o bolumleri
+   gizliyor ve geriye ARDISIK iki alt-zeminli bolum kaliyordu (S.S.S. +
+   Iletisim) — ikisi tek bir gri blok gibi okunuyor, aralarindaki 217px'lik
+   bosluk olu alana donusuyordu. Bu kural siralamayi kendi kendine duzeltir:
+   bir alt-zemin digerini takip ederse ikincisi kagit zemine doner. Veri
+   doldurulup bolumler geri geldiginde de dogru calisir. */
+.section--alt + .section--alt{background:var(--paper)}
+
+.ic{width:1em;height:1em;fill:currentColor;flex:none}
+
+.eyebrow{
+  display:inline-flex;align-items:center;gap:9px;
+  font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--teal-700);margin-bottom:16px;
+}
+.eyebrow::before{content:"";width:26px;height:2px;background:var(--teal);border-radius:2px}
+.eyebrow--light{color:var(--teal-100)}
+.eyebrow--light::before{background:var(--teal-100)}
+
+.secHead{max-width:680px;margin:0 auto clamp(38px,5vw,60px);text-align:center}
+.secHead .eyebrow::before{display:none}
+
+.secTitle{font-size:clamp(29px,4vw,47px);letter-spacing:-.03em}
+/* ---- MARKA VURGUSU — sitenin TEK vurgu kurali ----
+   Baslik icindeki <em>, ikinci bir yazi tipiyle degil YALNIZCA renkle
+   ayrisir: ayni Plus Jakarta Sans, ayni agirlik, ayni tracking, normal
+   style. Ayni kural hero'daki .hero__accent icin de gecerli (bkz. hero
+   bolumu) — boylece ana sayfa, 6 tedavi sayfasi ve 404 ayni dili konusur.
+   Eskiden burada Instrument Serif italic 400 vardi; her bolum basliginda
+   ikinci bir font karakteri olusturuyordu. */
+.secTitle em{font-style:normal;color:var(--teal-700)}
+.secTitle--light{color:#fff}
+.secTitle--light em{color:var(--teal-100)}
+
+.secLead{margin-top:18px;font-size:clamp(16px,1.6vw,19px);color:var(--muted)}
+
+.chip{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:8px 16px 8px 12px;border-radius:var(--pill);
+  background:var(--teal-50);border:1px solid var(--teal-100);
+  color:var(--teal-700);font-size:14px;font-weight:600;
+}
+.chip__dot{width:8px;height:8px;border-radius:50%;background:var(--teal);position:relative}
+.chip__dot::after{
+  content:"";position:absolute;inset:-5px;border-radius:50%;
+  border:2px solid var(--teal);opacity:.5;animation:ping 2.2s ease-out infinite;
+}
+@keyframes ping{0%{transform:scale(.5);opacity:.7}100%{transform:scale(1.5);opacity:0}}
+
+.stars{display:flex;gap:3px;color:var(--gold);font-size:16px}
+
+/* Butonlar */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  padding:14px 24px;border-radius:var(--r-btn);
+  font-size:15px;font-weight:700;letter-spacing:-.01em;white-space:nowrap;
+  border:1.5px solid transparent;cursor:pointer;
+  transition:transform var(--t),background var(--t),box-shadow var(--t),color var(--t),border-color var(--t);
+}
+.btn .ic{font-size:1.05em}
+.btn:hover{transform:translateY(-2px)}
+/* Dokunma geri bildirimi: mobilde hover yok, basılı hâlde buton hafifçe
+   içeri çöker. Renk/ölçü sistemi değişmiyor. */
+.btn:active{transform:translateY(0) scale(.985)}
+.btn:focus-visible{outline:2px solid var(--teal-700);outline-offset:3px}
+.btn--lg{padding:17px 30px;font-size:16.5px}
+.btn--block{width:100%}
+/* Tam genişlikteki butonda uzun etiket sarabilmeli — .btn'deki
+   white-space:nowrap dar ekranda metni kırpıyordu */
+.btn--block{white-space:normal;text-align:center}
+/* Ikon-butonu daire kalir: icinde metin yok, kare kose orada agir durur. */
+.btn--icon-only{padding:13px;font-size:18px;border-radius:var(--pill)}
+
+.btn--primary{background:var(--navy);color:#fff;box-shadow:0 10px 26px -12px rgba(18,50,92,.75)}
+.btn--primary:hover{background:var(--navy-700);box-shadow:0 16px 34px -14px rgba(18,50,92,.8)}
+
+.btn--wa{background:var(--wa);color:#fff;box-shadow:0 10px 26px -12px rgba(12,122,89,.7)}
+.btn--wa:hover{background:var(--wa-700);box-shadow:0 16px 34px -14px rgba(12,122,89,.75)}
+
+.btn--outline{background:transparent;color:var(--navy);border-color:var(--mist)}
+.btn--outline:hover{border-color:var(--navy);background:var(--navy-50)}
+
+.btn--ghost{background:var(--navy-50);color:var(--navy)}
+.btn--ghost:hover{background:var(--navy-100)}
+
+.btn--light{background:#fff;color:var(--navy-900)}
+.btn--light:hover{background:var(--teal-50)}
+
+.btn--outlineLight{background:transparent;color:#fff;border-color:rgba(255,255,255,.42)}
+.btn--outlineLight:hover{background:rgba(255,255,255,.12);border-color:#fff}
+
+/* Onay listesi */
+.tickList{display:grid;gap:13px;margin-top:26px}
+.tickList li{display:flex;gap:12px;align-items:flex-start;font-size:16px}
+.tickList .ic{
+  font-size:20px;color:var(--teal-700);background:var(--teal-50);
+  border-radius:50%;padding:2px;margin-top:3px;
+}
+.tickList--light li{color:rgba(255,255,255,.88)}
+.tickList--light .ic{color:#fff;background:rgba(255,255,255,.16)}
+
+/* Fotoğraf yer tutucu — gerçek <img> eklenince otomatik gizlenir */
+.photo{
+  position:relative;overflow:hidden;border-radius:var(--r-lg);
+  background:
+    radial-gradient(120% 90% at 15% 10%, var(--teal-100) 0%, transparent 55%),
+    radial-gradient(110% 100% at 88% 92%, var(--navy-100) 0%, transparent 58%),
+    linear-gradient(150deg,#F1F6F8 0%,#E4EDF2 100%);
+}
+.photo img{width:100%;height:100%;object-fit:cover;position:relative;z-index:2}
+.photo[data-photo]::after{
+  content:attr(data-photo);
+  position:absolute;inset:0;z-index:1;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--navy);opacity:.34;
+  font-size:14px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  text-align:center;padding:20px;
+}
+.photo:has(img)::after{display:none}
+
+/* Scroll animasyonu */
+.reveal{opacity:0;transform:translateY(22px)}
+.reveal.is-in{
+  opacity:1;transform:none;
+  transition:opacity .75s ease,transform .75s cubic-bezier(.22,.61,.36,1);
+  transition-delay:var(--d,0ms);
+}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  /* iteration-count olmadan `infinite` animasyonlar .01ms'lik dongulerle donmeye
+     devam ediyordu (sitede 5 sonsuz animasyon var: ping x2, bob x2, surecAkis).
+     Bu satir onlari gercekten durduruyor. */
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  .reveal{opacity:1;transform:none}
+}
+
+/* ---------- 4. ÜST ŞERİT + HEADER ---------- */
+.topbar{background:var(--navy-900);color:rgba(255,255,255,.78);font-size:13.5px}
+.topbar__in{display:flex;align-items:center;gap:28px;height:44px}
+.topbar__item{display:inline-flex;align-items:center;gap:8px}
+.topbar__item .ic{font-size:15px;color:var(--teal)}
+.topbar__phone{
+  margin-left:auto;font-weight:700;color:#fff;transition:color var(--t);
+  /* WCAG 2.2 hedef boyutu: 24px. Dolgu tıklama alanını büyütür, negatif dış
+     boşluk şeridin yüksekliğini olduğu gibi bırakır. */
+  padding-block:4px;margin-block:-4px;
+}
+.topbar__phone:hover{color:var(--teal)}
+
+.header{
+  position:sticky;top:0;z-index:100;
+  background:rgba(252,251,249,.88);
+  backdrop-filter:saturate(180%) blur(14px);
+  -webkit-backdrop-filter:saturate(180%) blur(14px);
+  border-bottom:1px solid transparent;
+  transition:box-shadow var(--t),border-color var(--t);
+}
+.header.is-stuck{border-bottom-color:var(--mist);box-shadow:0 6px 26px -18px rgba(11,34,66,.5)}
+.header__in{display:flex;align-items:center;gap:22px;min-height:80px}
+
+.logo{display:inline-flex;align-items:center;flex:none}
+.logo__img{height:clamp(38px,4.2vw,50px);width:auto;mix-blend-mode:multiply}
+
+.nav{position:relative;display:flex;align-items:center;gap:4px;margin-left:auto}
+.nav > a{
+  position:relative;padding:10px 13px;border-radius:var(--r-sm);
+  font-size:15.5px;font-weight:600;color:var(--navy);
+  transition:color var(--t);
+}
+.nav > a::after{
+  content:"";position:absolute;left:13px;right:13px;bottom:4px;height:2px;
+  background:var(--teal);border-radius:2px;transform:scaleX(0);transform-origin:left;
+  transition:transform var(--t);
+}
+.nav > a:hover{color:var(--teal-700)}
+.nav > a:hover::after,.nav > a.is-active::after{transform:scaleX(1)}
+.nav > a.is-active{color:var(--teal-700)}
+
+/* Öğeden öğeye kayan tek alt çizgi. JS yalnızca masaüstünde ve hareket
+   azaltma kapalıyken kurar; kurunca .nav'a has-ind ekler.
+   DİKKAT: aşağıdaki ::after kapatması silinirse kayan çizgi ile tek tek
+   alt çizgiler üst üste biner. */
+.nav__ind{
+  position:absolute;bottom:4px;left:0;height:2px;width:0;
+  background:var(--teal);border-radius:2px;opacity:0;pointer-events:none;
+  transition:transform var(--t),width var(--t),opacity var(--t);
+}
+.nav.has-ind > a::after{display:none}
+.nav__mobileCta{display:none}
+
+/* Açılır alt menü (Tedaviler) */
+.navGroup{position:relative}
+.navGroup__top{
+  position:relative;display:inline-flex;align-items:center;gap:6px;
+  padding:10px 13px;border-radius:var(--r-sm);
+  font-size:15.5px;font-weight:600;color:var(--navy);
+  transition:color var(--t);
+}
+.navGroup__top:hover,.navGroup.is-open .navGroup__top,
+.navGroup__top.is-active{color:var(--teal-700)}
+.navGroup__caret{font-size:15px;transform:rotate(90deg);transition:transform var(--t)}
+.navGroup.is-open .navGroup__caret{transform:rotate(-90deg)}
+.navGroup__menu{
+  position:absolute;top:100%;left:0;z-index:20;min-width:238px;
+  background:var(--paper);border:1px solid var(--mist);border-radius:var(--r);
+  box-shadow:var(--sh);padding:8px;
+  opacity:0;visibility:hidden;transform:translateY(-6px);pointer-events:none;
+  /* DİKKAT: visibility BİLEREK geçişe dahil değil. Dahil edilirse 0.35s
+     boyunca hidden kalıyor ve Tab'a hızlı basan klavye kullanıcısında
+     tarayıcı odak sırasını hesaplarken alt menüyü ATLIYOR. */
+  transition:opacity var(--t),transform var(--t);
+}
+/* Durumu JS yönetir (is-open + aria-expanded birlikte).
+   :focus-within güvenlik ağı: JS çalışmazsa klavyeyle yine açılsın. */
+.navGroup.is-open .navGroup__menu,
+.navGroup:focus-within .navGroup__menu{
+  opacity:1;visibility:visible;transform:none;pointer-events:auto;
+}
+.navGroup__menu a{
+  display:block;padding:10px 12px;border-radius:var(--r-sm);
+  font-size:15px;font-weight:600;color:var(--navy);
+  transition:background var(--t),color var(--t);
+}
+.navGroup__menu a:hover{background:var(--teal-50);color:var(--teal-700)}
+
+.header__actions{display:flex;align-items:center;gap:10px;flex:none}
+
+.burger{display:none;width:46px;height:46px;border-radius:var(--r-sm);background:var(--navy-50)}
+.burger span{
+  display:block;width:20px;height:2px;margin:4px auto;border-radius:2px;
+  background:var(--navy);transition:transform var(--t),opacity var(--t);
+}
+.burger[aria-expanded="true"] span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.burger[aria-expanded="true"] span:nth-child(2){opacity:0}
+.burger[aria-expanded="true"] span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+
+.navScrim{
+  position:fixed;inset:0;z-index:98;background:rgba(11,34,66,.5);
+  opacity:0;visibility:hidden;transition:opacity var(--t),visibility var(--t);
+}
+.navScrim.is-on{opacity:1;visibility:visible}
+
+/* ---------- 5. HERO ---------- */
+.hero{position:relative;padding-top:clamp(40px,5vw,68px);overflow:hidden}
+.hero__glow{
+  position:absolute;top:-28%;right:-14%;width:min(760px,88vw);aspect-ratio:1;
+  background:radial-gradient(circle,rgba(22,169,163,.19) 0%,rgba(22,169,163,0) 66%);
+  pointer-events:none;
+}
+.hero__in{
+  display:grid;grid-template-columns:1.02fr .98fr;gap:clamp(32px,5vw,72px);align-items:center;
+  padding-bottom:clamp(46px,6vw,80px);
+}
+
+/* ---------- HERO BASLIGI — TIPOGRAFIK KOMPOZISYON ----------
+   Tek yazi tipi (Plus Jakarta Sans degisken, 400-800), tek vurgu rengi.
+   Gorsel guc suslemeden degil, uc olcu ayari + uc kademeli agirlik/renk
+   hiyerarsisinden geliyor (hiyerarsi asagida, .hero__line:nth-child(2)):
+
+   1) Ust punto siniri 62px (onceden 66px). Sebep sadece boyut degil, SATIR
+      KIRILIMI: 66px'te "Kendinden emin bir" 572px surer, hero sutunu ise
+      552-555px — satir "Kendinden emin / bir gulus." diye bolunur ve teal
+      kelimenin onunde lacivert "bir" sarkar. 62px'te ayni satir 541px'e iner,
+      sutuna sigar ve kompozisyon amaclanan hiyerarsiye oturur:
+      "Saglikli disler. / Kendinden emin bir / gulus."  Zorunlu <br> gerekmez.
+
+   2) line-height 1.04 -> 1.10 (>=1081px'te 1.05). 1.04, uc satirlik Turkce
+      metinde (g, s, i kuyruk ve noktalari) satirlari birbirine yapistiriyordu.
+
+   3) letter-spacing tek deger degil, punto ile olcekleniyor: buyuk puntoda
+      siki (-.032em) durur, kucuk puntoda acilir (-.026em). Tek bir -.035em
+      36px'te harfleri birbirine degdiriyordu.
+   ---------------------------------------------------------- */
+.hero__title{margin-top:24px;font-size:clamp(36px,5.4vw,62px);line-height:1.10;letter-spacing:-.026em}
+/* <=380px: hero sutunu 272px'e kadar iniyor; "Kendinden emin" ancak daha siki
+   aralikla tek satirda kaliyor (269px -> 266px, 6px pay). */
+@media (max-width:380px){ .hero__title{letter-spacing:-.032em} }
+/* Buyuk punto optik olarak daha siki tracking ve daha kapali satir araligi ister. */
+@media (min-width:1081px){ .hero__title{line-height:1.05;letter-spacing:-.032em} }
+/* ---- UC KADEMELI HIYERARSI — tek yazi tipi, tek vurgu rengi ----
+     1. satir "Saglikli disler."   -> 800, lacivert  (h1 tabanindan gelir)
+     2. satir "Kendinden emin bir" -> 700, AYNI lacivert
+     3. satir "gulus."             -> 800, teal
+
+   Ayrisma ikinci bir font, italik ya da serif ile degil; ayni degisken
+   fontun agirlik ekseninde kuruluyor. 700 Plus Jakarta Sans'ta hala Bold —
+   "ince" degil. 750 de denendi, 36px'te adim gozle secilemiyordu; 2. satiri
+   daha acik bir lacivert yapmak ise onu soluklastiriyordu, ikisi de elendi.
+   Yan fayda: 700'de "Kendinden emin bir" 541px -> 536px, masaustu satir
+   payi 14px'ten 19px'e cikiyor. */
+.hero__title .hero__line:nth-child(2){font-weight:700}
+/* .secTitle em ile AYNI kural (bkz. MARKA VURGUSU): vurgu yalnizca renkle.
+   font-weight:800 burada 2. satirin 700'unu geri almak icin var. */
+.hero__title .hero__accent{font-weight:800;color:var(--teal-700)}
+.hero__sub{margin-top:22px;font-size:clamp(16.5px,1.7vw,19px);max-width:54ch}
+.hero__cta{display:flex;flex-wrap:wrap;gap:13px;margin-top:34px}
+
+.hero__facts{margin-top:34px;gap:11px}
+.hero__facts li{font-size:15.5px;color:var(--muted)}
+.hero__facts .ic{font-size:18px}
+
+/* ---------- HERO GİRİŞ ANİMASYONU ----------
+   Tamamen CSS: sayfa yüklenince kendiliğinden başlar, JS gerekmez — script
+   çalışmasa bile "both" dolgusu sayesinde hero görünür kalır ve FOUC olmaz.
+   Tek seferlik: iteration-count 1 (sonsuz döngü yok). Süreler 0.55–0.8s,
+   ease-out eğrisi. Hareket azaltma tercihinde blok hiç uygulanmaz —
+   @media (prefers-reduced-motion:no-preference) içinde duruyor. */
+@keyframes heroIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+@keyframes heroFotoIn{from{opacity:0;transform:scale(1.05)}to{opacity:1;transform:none}}
+
+@media (prefers-reduced-motion:no-preference){
+  .hero__copy > *:not(.hero__title),
+  .hero__title .hero__line,
+  .hero__facts li{
+    animation:heroIn .62s cubic-bezier(.16,.84,.44,1) both;
+  }
+  /* Gecikme kuralları taban kuralla AYNI özgüllükte (.hero + sınıf = 0,2,0)
+     yazılmalı: kısa yazılsaydı taban kuraldaki animation kısayolu delay'i
+     0'a sıfırlar ve kademe hiç çalışmazdı. */
+  .hero .chip      {animation-delay:60ms}
+  .hero__title .hero__line:nth-child(1){animation-delay:140ms}
+  .hero__title .hero__line:nth-child(2){animation-delay:230ms}
+  .hero .hero__sub {animation-delay:340ms}
+  .hero .hero__cta {animation-delay:430ms}
+  /* Maddeler blok olarak değil tek tek gelsin: listenin kendi animasyonu iptal. */
+  .hero .hero__facts{animation:none}
+  .hero__facts li:nth-child(1){animation-delay:510ms}
+  .hero__facts li:nth-child(2){animation-delay:580ms}
+  .hero__facts li:nth-child(3){animation-delay:650ms}
+
+  .hero__visual{animation:heroIn .72s cubic-bezier(.16,.84,.44,1) both;animation-delay:180ms}
+  /* Fotoğrafta çok hafif "yerine oturma": 1.05 -> 1. Parallax yok, döngü yok. */
+  .photo--hero img{animation:heroFotoIn .8s cubic-bezier(.16,.84,.44,1) both;animation-delay:180ms}
+}
+
+.hero__line{display:block}
+
+.hero__visual{position:relative}
+.photo--hero{aspect-ratio:4/5;box-shadow:var(--sh-lg);border-radius:var(--r-xl)}
+
+.floatCard{position:absolute;z-index:3;background:#fff;border-radius:var(--r);box-shadow:var(--sh);padding:15px 18px}
+.floatCard--a{left:-6%;top:12%;display:flex;align-items:center;gap:12px;animation:bob 6s ease-in-out infinite}
+.floatCard--a strong{display:block;font-size:14.5px;color:var(--navy-900)}
+.floatCard--a small{font-size:12.5px;color:var(--muted)}
+.floatCard__ico{
+  width:40px;height:40px;border-radius:12px;flex:none;
+  display:grid;place-items:center;font-size:21px;
+  background:var(--teal-50);color:var(--teal-700);
+}
+.floatCard--b{right:-6%;bottom:8%;width:212px;animation:bob 6s ease-in-out .8s infinite}
+.floatCard__big{display:block;font-size:14.5px;color:var(--navy-900);margin-bottom:10px}
+.floatCard__hours{
+  padding:9px 12px;border-radius:9px;
+  background:var(--teal-50);color:var(--teal-700);font-size:13px;font-weight:700;
+}
+/* Randevu Saatleri kartinin gun/saat listesi — js/main.js > buildHeroHours()
+   config.js > hours dizisinden basar. Masaustunde kart tek satirlik ozeti
+   (.floatCard__hours) gosterdigi icin gizli; <=640px'te bu liste devreye
+   girer, ozet satiri gizlenir. Ikisi ayni veriden gelir. */
+.floatCard__days{display:none;list-style:none;margin:0;padding:0}
+.floatCard__days li{
+  display:flex;align-items:baseline;justify-content:space-between;gap:12px;
+  padding:6px 0;font-size:12.5px;color:var(--muted);
+}
+.floatCard__days li + li{border-top:1px solid var(--mist)}
+.floatCard__days b{font-weight:700;color:var(--navy-900);white-space:nowrap}
+.floatCard__days li.is-closed b{color:var(--err)}
+
+.floatCard__link{
+  display:inline-flex;align-items:center;gap:6px;font-size:13.5px;font-weight:700;color:var(--navy);
+  /* WCAG 2.2 hedef boyutu: dolgu ile 24px üstüne çıkar; üst boşluk 12->8 olduğu
+     için metin eskisiyle aynı yerde durur. */
+  margin-top:8px;padding-block:4px;
+}
+.floatCard__link .ic{transition:transform var(--t)}
+.floatCard__link:hover .ic{transform:translateX(4px)}
+
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-11px)}}
+
+/* İstatistikler */
+.stats{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  background:#fff;border:1px solid var(--mist);border-radius:var(--r-lg);
+  box-shadow:var(--sh-sm);overflow:hidden;
+}
+.stat{padding:30px 24px;text-align:center;border-right:1px solid var(--mist)}
+.stat:last-child{border-right:0}
+.stat__num{
+  display:block;font-size:clamp(30px,3.6vw,42px);font-weight:800;
+  color:var(--navy-900);letter-spacing:-.03em;line-height:1;
+}
+.stat__num span{color:var(--teal)}
+.stat__label{display:block;margin-top:9px;font-size:14px;color:var(--muted);font-weight:600}
+
+/* ---------- 7. HİZMET KARTLARI ---------- */
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.card{
+  position:relative;background:#fff;border:1px solid var(--mist);
+  border-radius:var(--r-lg);overflow:hidden;
+  display:flex;flex-direction:column;
+  transition:transform var(--t),box-shadow var(--t),border-color var(--t);
+}
+/* Görsel yoksa main.js bu bloğu gizler, kart ikonlu hâline döner */
+.card__media{aspect-ratio:3/2;overflow:hidden;background:var(--paper-2)}
+.card__media img{
+  width:100%;height:100%;object-fit:cover;
+  transition:transform .7s cubic-bezier(.22,.61,.36,1);
+}
+.card:hover .card__media img{transform:scale(1.05)}
+/* Kompakt servis ızgarası: kartlarda artık fotoğraf ve madde listesi yok,
+   ikon + başlık + kısa açıklama + bağlantı kaldı. Dolgu buna göre sıkıştırıldı. */
+.card__body{display:flex;flex-direction:column;flex:1;padding:26px 24px 24px}
+/* DİKKAT: buradaki hiçbir öğeye position verilmemeli — verilirse
+   .card__link::after kartın tamamı yerine yalnızca kendi kutusunu kaplar
+   ve kart tıklanabilirliğini kaybeder. */
+/* Görsel varken ikon küçülüp başlığın üstünde nefes alsın */
+.card__media + .card__body .card__ico{width:46px;height:46px;font-size:23px;border-radius:14px;margin-bottom:16px}
+.card::before{
+  content:"";position:absolute;inset:0;pointer-events:none;z-index:1;
+  /* 21st.dev Feature Section'daki hover isigi: ustten yayilan yumusak teal
+     parlama + kosegen tarama. Yalnizca zemin dokusu, metin degil. */
+  background:
+    radial-gradient(115% 75% at 50% -8%,rgba(13,125,121,.11),transparent 62%),
+    linear-gradient(160deg,rgba(13,125,121,.07),transparent 48%);
+  opacity:0;transition:opacity var(--t);
+}
+/* Kart hover'da ZIPLAMAZ: yalnızca kenar rengi, gölge ve ışık değişir —
+   düzeni oynatan transform kullanılmıyor. */
+.card:hover{box-shadow:var(--sh-sm);border-color:var(--teal-100)}
+.card:hover::before{opacity:1}
+.card__ico{
+  position:relative;display:grid;place-items:center;width:48px;height:48px;border-radius:15px;
+  background:var(--teal-50);color:var(--teal-700);font-size:24px;margin-bottom:16px;
+  transition:background var(--t),color var(--t);
+}
+.card:hover .card__ico{background:var(--navy-900);color:var(--teal)}
+/* Vurgu cizgisi bilerek background-image ile ciziliyor: ::after + position
+   kullanilsaydi .card__link::after katmani bozulur ve kart tiklanabilirligini
+   kaybederdi (bkz. yukaridaki DIKKAT notu). */
+.card h3{
+  font-size:21px;margin-bottom:11px;padding-bottom:7px;
+  background-image:linear-gradient(var(--teal-700),var(--teal-700));
+  background-repeat:no-repeat;background-position:0 100%;background-size:0 2px;
+  transition:background-size var(--t),transform var(--t);
+}
+.card:hover h3,.card:focus-within h3{background-size:30px 2px;transform:translateX(3px)}
+.card__body > p{font-size:15.5px;color:var(--muted)}
+.card__list{display:grid;gap:9px;margin:20px 0 24px;padding-top:20px;border-top:1px dashed var(--mist)}
+.card__list li{display:flex;gap:9px;align-items:flex-start;font-size:14.5px}
+.card__list .ic{font-size:18px;color:var(--teal);margin-top:3px}
+.card__link{margin-top:auto;padding-top:16px;display:inline-flex;align-items:center;gap:8px;font-size:14.5px;font-weight:700;color:var(--navy)}
+/* Kartın her yeri bu bağlantıya tıklar — fotoğraf ve başlık dâhil */
+.card__link::after{content:"";position:absolute;inset:0}
+.card:hover .card__link{color:var(--teal-700)}
+.card:hover .card__link .ic{transform:translateX(5px)}
+.card:focus-within{outline:3px solid var(--teal);outline-offset:3px}
+.card__link .ic{transition:transform var(--t)}
+.card__link:hover{color:var(--teal-700)}
+.card__link:hover .ic{transform:translateX(5px)}
+
+/* Masaustunde 4 sutunlu feature izgarasi. 1081-1180 arasi 3 sutunda kalir
+   (4 sutun o genislikte kartlari sikistiriyor); >=1181 dort sutuna gecer.
+   6 kart 4 sutuna tam bolunmedigi icin son satirdaki iki kart ortalanir. */
+@media (min-width:1181px){
+  .cards{grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
+  .cards > .card:nth-child(5){grid-column:2}
+  .card__body{padding:24px 22px 22px}
+  .card h3{font-size:18px}
+  .card__body > p{font-size:14.5px}
+  .card__ico{width:44px;height:44px;font-size:22px;border-radius:14px;margin-bottom:14px}
+}
+
+/* ---------- 7b. TEDAVİ CAROUSEL ----------
+   .is-carousel sınıfını js/main.js > initTedaviCarousel() ekler; JS yoksa
+   bölüm eski ızgara/şerit düzeninde kalır (aşamalı iyileştirme).
+   Kaydırma native scroll-snap ile — kütüphane yok. Şerit .wrap'in iç
+   boşluğunu negatif dış boşlukla iptal edip ekran kenarına taşınır; taşma
+   şeridin içinde kaldığı için sayfa yatay kaymaz. */
+.cards.is-carousel{
+  display:flex;grid-template-columns:none;align-items:stretch;gap:24px;
+  counter-reset:tedavi;
+  --kart-w:clamp(240px,78vw,460px);
+  /* Yan kartların geriye gitme hissi için sahne derinliği. */
+  perspective:1800px;
+  overflow-x:auto;overscroll-behavior-x:contain;
+  scroll-snap-type:x mandatory;
+  /* ≤768px yedek kuralı scroll-padding-left:var(--gut) veriyor; snap alanını
+     soldan daraltıp kartı tam yarısı kadar (12px) sağa oturtuyordu. */
+  scroll-padding-inline:0;
+  /* Aktif kart ortada dursun: yan dolgu = şeridin yarısı eksi kartın yarısı.
+     İlk ve son kart da merkeze gelebilsin diye gerekli. */
+  margin-inline:calc(var(--gut) * -1);
+  padding-inline:max(var(--gut),calc((min(100vw,var(--wrap)) - var(--kart-w)) / 2));
+  padding-block:16px 24px;   /* büyüyen aktif kartın gölgesi ve hover payı için */
+  scrollbar-width:none;
+}
+.cards.is-carousel::-webkit-scrollbar{display:none}
+.cards.is-carousel > .card{
+  flex:0 0 var(--kart-w);
+  scroll-snap-align:center;
+  transform-origin:50% 100%;
+  counter-increment:tedavi;
+  border-radius:var(--r-xl);
+  /* Varsayılan = aktifin SOLUNDA kalan kartlar: sağa doğru hafif dönüş. */
+  transform-origin:right center;
+  opacity:.5;transform:rotateY(5deg) scale(.90) translateY(8px);
+  /* Hafif doygunluk düşüşü derinliği artırır; renk paleti değişmez. */
+  filter:saturate(.9);
+  transition:transform .55s cubic-bezier(.22,.61,.36,1),opacity .45s ease,
+             filter .45s ease,box-shadow var(--t),border-color var(--t);
+}
+/* Komşu kart: ara kademe — showcase derinliği için aktiften belirgin küçük. */
+.cards.is-carousel > .card.is-near{opacity:.74;transform:rotateY(3deg) scale(.945) translateY(4px);filter:saturate(.96)}
+/* Aktifin SAĞINDA kalan kartlar: ayna yönde dönüş (kardeş birleştirici). */
+.cards.is-carousel > .card.is-active ~ .card{transform-origin:left center;transform:rotateY(-5deg) scale(.90) translateY(8px)}
+.cards.is-carousel > .card.is-active ~ .card.is-near{transform:rotateY(-3deg) scale(.945) translateY(4px)}
+/* Aktif kart: tam boy, tam opak, teal kenar ve güçlü ama temiz gölge. */
+.cards.is-carousel > .card.is-active,
+.cards.is-carousel > .card.is-active:hover{
+  opacity:1;transform:none;filter:none;transform-origin:center;
+  border-color:var(--teal-100);box-shadow:var(--sh-lg);
+}
+/* Aktif kartta sitenin mevcut hover vurguları kalıcı olur: ikon lacivert
+   zeminde teal, başlıkta teal alt çizgi, bağlantı teal. Yeni renk yok. */
+.cards.is-carousel > .card.is-active .card__ico{background:var(--navy-900);color:var(--teal)}
+.cards.is-carousel > .card.is-active h3{background-size:34px 2px}
+.cards.is-carousel > .card.is-active .card__link{color:var(--teal-700)}
+/* İnce teal accent çizgisi: gövdenin üst kenarında, yani görselin hemen
+   altında. Gövdeye uygulanıyor çünkü .card__media'daki inset gölge <img>'in
+   altında kalıp görünmüyordu (render'da ölçüldü). Fotoğrafın üzerine
+   gradient binmiyor, fotoğraf karartılmıyor, yükseklik değişmiyor. */
+.cards.is-carousel > .card.is-active .card__body{box-shadow:inset 0 3px 0 var(--teal)}
+.cards.is-carousel > .card:hover{opacity:.86}
+.cards.is-carousel > .card.is-active:hover{transform:translateY(-5px)}
+/* ≤768px'te JS'siz yedek kural (.cards > .card) kartı max-width:340px ile
+   sınırlıyor. Merkezleme dolgusu --kart-w'ye dayandığı için ikisi aynı
+   gerçek genişliği göstermeli; yoksa aktif kart 60px yana kayıyor. */
+@media (max-width:768px){
+  .cards.is-carousel{--kart-w:min(clamp(240px,78vw,460px),340px)}
+}
+/* Eşit görsel ritim: açıklamalar 3 satırla sınırlı, kart boyları oynamıyor. */
+@media (max-width:420px){
+  /* Dar ekranda boşluk daralınca sonraki karttan görünen pay artar. */
+  .cards.is-carousel{gap:13px}
+}
+/* Görsel alanı kartın ana unsuru: şeritte 3:2 yerine daha yüksek 4:3.
+   object-fit:cover korunuyor, oran bozulmuyor. */
+.cards.is-carousel .card__media{aspect-ratio:4/3}
+/* ---------- MASAUSTU KOMPOZISYONU (>=1081px) ----------
+   Onceki halde kart 460px'e sabitleniyor ve serit icinde ORTALANIYORDU:
+   1200px'lik sahnede solda 370px olu bosluk kaliyor, aktif kart sahnenin
+   yalnizca %38'ini kullaniyor, sonraki kart sag kenardan kopuk duruyordu.
+   Artik kart sahnenin %60'i ve icerik sutununa SOLDAN hizali; kalan alanda
+   sonraki kart %38 gorunurlukle kontrollu bir peek yapiyor.
+   Genislik sabit px degil, sahne genisliginden hesaplaniyor.
+   ≤1080px (tablet + mobil) davranisi bilerek DEGISMEDI. */
+/* Masaüstünde görsel kartın baskın unsuru olsun: biraz daha yüksek kare. */
+@media (min-width:1080px){
+  .cards.is-carousel .card__media{aspect-ratio:5/4}
+}
+@media (min-width:1081px){
+  .cards.is-carousel{
+    --kart-hiza:start;                                     /* js/main.js bunu okur */
+    --kart-w:calc((min(100vw,var(--wrap)) - var(--gut) * 2) * .60);
+    padding-inline:var(--gut);
+    scroll-padding-inline:var(--gut);
+  }
+  .cards.is-carousel > .card{scroll-snap-align:start}
+  /* Kart %60'a genisleyince 5/4 gorseli ~550px'e cikiyordu; 16/7 ile ~300px'te
+     kaliyor ve kart tek bakista okunuyor. Bu kural 5/4'u ezmeli, o yuzden
+     ondan SONRA yaziliyor. */
+  .cards.is-carousel .card__media{aspect-ratio:16/7}
+}
+.cards.is-carousel .card__body{padding:22px 24px 22px}
+/* Numara göstergesi CSS counter ile üretiliyor — HTML'e öğe eklenmiyor.
+   Büyük renkli rozet değil, küçük teal etiket. */
+.cards.is-carousel .card h3::before{
+  content:counter(tedavi,decimal-leading-zero);
+  display:block;margin-bottom:7px;
+  font-size:15px;font-weight:700;letter-spacing:.14em;
+  color:var(--teal-700);font-variant-numeric:tabular-nums;
+}
+/* İkon numaranın üstünde kompakt bir işaret olarak kalır. */
+.cards.is-carousel .card__ico{width:40px;height:40px;font-size:20px;border-radius:12px;margin-bottom:14px}
+.cards.is-carousel .card h3{font-size:22px;line-height:1.25}
+.cards.is-carousel > .card.is-active h3::before{font-size:17px}
+.cards.is-carousel .card__body > p{
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden;
+}
+@media (prefers-reduced-motion:reduce){
+  .cards.is-carousel > .card,
+  .cards.is-carousel > .card:hover{transform:none;filter:none}
+}
+
+/* Tedavi carousel navigasyonu — 6 tedavi için kompakt noktalar. */
+/* Bölüm başlığı ile şerit arasında daha net bir görsel ilişki. Metinler
+   değişmiyor; yalnızca boşluk, harf aralığı ve teal vurgu. */
+#hizmetler .secHead{margin-bottom:clamp(32px,3.8vw,56px)}
+#hizmetler .eyebrow{letter-spacing:.2em}
+#hizmetler .secLead{max-width:56ch}
+.cardsNav{display:flex;align-items:center;gap:12px;margin-top:24px}
+.cardsNav__dots{display:flex;gap:8px;flex:1;justify-content:center;list-style:none;margin:0;padding:0}
+.cardsNav__dots button{
+  width:11px;height:11px;padding:0;border-radius:50%;cursor:pointer;
+  border:1px solid var(--mist);background:var(--mist);
+  transition:background var(--t),border-color var(--t),transform var(--t),box-shadow var(--t);
+}
+.cardsNav__dots button:hover{border-color:var(--teal-700)}
+/* Aktif nokta teal — bölümün vurgu rengiyle aynı dil. */
+.cardsNav__dots button.is-active{
+  background:var(--teal-700);border-color:var(--teal-700);transform:scale(1.3);
+  box-shadow:0 0 0 4px var(--teal-50);
+}
+.cardsNav__ok{
+  display:grid;place-items:center;width:46px;height:46px;flex:none;cursor:pointer;
+  border:1px solid var(--mist);border-radius:50%;background:#fff;color:var(--navy);
+  transition:background var(--t),border-color var(--t),opacity var(--t),transform var(--t);
+}
+.cardsNav__ok:hover:not(:disabled){border-color:var(--navy);background:var(--navy-50);transform:translateY(-2px)}
+.cardsNav__ok:disabled{opacity:.35;cursor:default}
+.cardsNav__ok .ic{transform:rotate(180deg)}
+.cardsNav__ok--ileri .ic{transform:none}
+
+/* ---------- 8. HAKKIMIZDA ---------- */
+/* align-items:start — iki sütun aynı çizgide başlasın. center'da fotoğraf
+   (618px) metinden (691px) kısa olduğu için 36px aşağıdan başlıyordu. */
+.about{display:grid;grid-template-columns:.92fr 1.08fr;gap:clamp(34px,5.5vw,80px);align-items:start}
+.about__media{position:relative}
+.photo--about{aspect-ratio:4/5;box-shadow:var(--sh-lg);border-radius:var(--r-xl)}
+/* Hekim fotoğrafının kadrajı.
+   DİKKAT — burada object-position İŞE YARAMAZ: çerçevenin oranı (4/5 = 0.800)
+   ile hekim.jpg'nin doğal oranı (1122/1402 = 0.800) birebir aynı, dolayısıyla
+   object-fit:cover hiçbir taşma üretmiyor (ölçüldü: yatay 0px, dikey 0px) ve
+   kaydırılacak bir şey kalmıyor.
+   Bu yüzden kadraj, hekimin yüzünün bulunduğu noktadan (%26, %24) ölçülü bir
+   yakınlaştırmayla kuruluyor. Amaç sahneyi büyütmek değil, geniş muayene
+   karesini hekim portresine yaklaştırmak; baş kesilmiyor, klinik bağlam
+   (ünite, hasta) görünür kalıyor. */
+/* dt-mustafa-birhan.jpg (1086x1448 = 0.750) 4/5'lik cerceveye cover ile
+   otururken dikeyde %6.7 tasar. Yuz kaynakta ~%48 yatay / ~%34 dikeyde;
+   olculu bir yakinlastirmayla portre one cikiyor, bas kesilmiyor ve
+   klinik baglam (unite, panoramik rontgen, duvardaki logo) goruntude kaliyor. */
+.photo--about img{transform:scale(1.15);transform-origin:50% 34%}
+.badgeCard{
+  position:absolute;right:-22px;bottom:34px;z-index:3;
+  background:var(--navy-900);color:#fff;border-radius:var(--r-lg);
+  padding:22px 26px;box-shadow:var(--sh);text-align:center;
+}
+.badgeCard__num{display:block;font-size:38px;font-weight:800;color:var(--teal);line-height:1;letter-spacing:-.03em}
+.badgeCard__txt{display:block;margin-top:7px;font-size:13px;line-height:1.4;color:rgba(255,255,255,.74);font-weight:600}
+
+.about__copy > p{margin-top:20px;font-size:17px}
+/* --- HEKİM KARTI ------------------------------------------------------------
+   21st.dev "Profile Card" fikrinin siteye uyarlanmış hâli: yuvarlak köşe,
+   yumuşak gölge, avatar + ad + unvan + tek CTA. Bileşenin sosyal ifadeleri
+   ("Add member", "Activity") alınmadı — klinik bağlamında karşılığı yok.
+   Renkler mevcut tokenlardan: beyaz kart, --mist kenar, --navy-900 ad,
+   --muted unvan, CTA sitenin lacivert birincil butonu. -------------------- */
+/* Hekim karti — editorial profil, dashboard karti degil.
+   Golge kaldirildi (havada duran arayuz widget'i hissini o veriyordu),
+   yaricap --r-lg(24px) -> --r(16px) ile sistemin geri kalanina esitlendi,
+   ic bosluk 24 -> 28px. Renk, icerik ve HTML aynen duruyor. */
+.docCard{
+  margin-top:34px;padding:28px;
+  background:#fff;border:1px solid var(--mist);border-radius:var(--r);
+  transition:border-color var(--t);
+}
+.docCard:hover{border-color:var(--teal-100)}
+.docCard__head{display:flex;align-items:center;gap:18px;min-width:0}
+/* Portre: daire "profil rozeti" yerine kare-portre. Daire + teal halka
+   sosyal uygulama avatari gibi okunuyordu; kare kadraj hekim portresi
+   gibi duruyor. Kirpma (transform) aynen korunuyor. */
+.docCard__avatar{
+  flex:none;width:68px;height:68px;border-radius:12px;overflow:hidden;
+  background:var(--paper-2);
+}
+.docCard__avatar img{
+  width:100%;height:100%;object-fit:cover;display:block;
+  /* Aynı dosya avatarda da kullanılıyor; yuvarlak karede yalnızca yüz
+     görünsün diye yüzün noktasından (%48, %30) daha çok yakınlaştırılıyor.
+     Ayrı bir portre dosyası eklemeye gerek kalmıyor. */
+  transform:scale(2.6);transform-origin:48% 30%;
+}
+.docCard__id{min-width:0}
+.docCard__id strong{display:block;font-size:19px;letter-spacing:-.02em;color:var(--navy-900)}
+.docCard__id small{display:block;margin-top:5px;font-size:13.5px;letter-spacing:.01em;color:var(--muted);line-height:1.45}
+.docCard__cta{margin-top:24px;align-self:flex-start}
+
+/* Hekim künyesi — doctorCredentials boşken gizli */
+.credCard{
+  margin-top:20px;padding:18px 20px;
+  background:var(--paper-2);border:1px solid var(--mist);border-radius:var(--r);
+  display:grid;gap:12px;
+}
+.credCard div{display:flex;gap:14px;flex-wrap:wrap;align-items:baseline}
+.credCard dt{flex:none;min-width:108px;font-size:13.5px;font-weight:700;color:var(--teal-700)}
+.credCard dd{margin:0;font-size:15.5px;color:var(--navy-900)}
+
+/* ---------- 9. SÜREÇ ---------- */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.step{position:relative;padding-top:30px}
+.step::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--mist);border-radius:3px}
+.step::after{content:"";position:absolute;top:-4.5px;left:0;width:12px;height:12px;border-radius:50%;background:var(--teal);border:3px solid var(--paper)}
+/* Adim numarasi: basligin (h3, 800) ALTINDA kalmali — 700 secildi.
+   800 denendi, h3 ile yarisiyordu. Tracking projedeki diger buyuk
+   sayilarla (.stat__num, .badgeCard__num) ayni: -.03em. */
+.step__num{display:block;font-size:44px;font-weight:700;letter-spacing:-.03em;line-height:1;color:var(--teal-700);opacity:.75;margin-bottom:14px}
+.step h3{font-size:20px;margin-bottom:10px}
+.step p{font-size:15.5px;color:var(--muted)}
+
+/* --- "Yolculuk" düzeni — yalnızca ana sayfadaki #surec ---------------------
+   Temel .steps/.step kuralları (yukarısı) 6 tedavi sayfasında da kullanılıyor;
+   bu yüzden yeni tasarım .steps--journey değiştiricisinin altına yazıldı ve
+   sınıf yalnızca index.html'deki listeye veriliyor.
+
+   21st.dev "How It Works" bileşeninin fikri: zikzak ilerleyen kartlar ve
+   aralarında akan kesikli bir yol. React/motion yerine CSS Grid + tek
+   @keyframes ile yapıldı.
+
+   DİKKAT — kapsayıcı kuralları .steps.steps--journey (iki sınıf) ile yazıldı:
+   18. bölümdeki ".perks,.cards,.steps{grid-template-columns:...}" kuralları
+   dosyada DAHA SONRA geliyor; tek sınıfla yazılsaydı dar ekranda onlar kazanır
+   ve düzen bozulurdu.
+
+   Kurallar mobil öncelikli: temel hâl tek sütun, iki sütunlu zikzak yalnızca
+   min-width:1081px içinde. Böylece dar ekranda geri alınacak masaüstü kuralı
+   kalmıyor. --------------------------------------------------------------- */
+.steps.steps--journey{
+  grid-template-columns:minmax(0,1fr);
+  gap:14px;
+  position:relative;
+}
+/* Kesikli omurga — bileşendeki akan strokeDasharray yolunun karşılığı.
+   prefers-reduced-motion'da 2. bölümdeki global .01ms kuralı durduruyor. */
+.steps--journey::before{
+  content:"";position:absolute;top:10px;bottom:10px;left:21px;width:2px;
+  background:repeating-linear-gradient(var(--mist) 0 8px,transparent 8px 14px);
+  animation:surecAkis 2.4s linear infinite;
+}
+@keyframes surecAkis{to{background-position:0 -14px}}
+
+.steps--journey .step{
+  padding:20px;min-width:0;margin-left:46px;
+  background:#fff;border:1px solid var(--mist);border-radius:var(--r-lg);
+  box-shadow:var(--sh-sm);
+  transition:transform var(--t),box-shadow var(--t),border-color var(--t);
+}
+.steps--journey .step:hover{transform:translateY(-5px);box-shadow:var(--sh);border-color:var(--teal-100)}
+/* Temel düzendeki yatay ray ve nokta bu düzende kapanır */
+.steps--journey .step::before,.steps--journey .step::after{display:none}
+
+.steps--journey .step__ico{
+  display:grid;place-items:center;width:46px;height:46px;border-radius:14px;
+  background:var(--navy-900);color:var(--teal);font-size:23px;margin-bottom:14px;
+}
+.steps--journey .step__panel{
+  background:var(--teal-50);border:1px solid var(--teal-100);
+  border-radius:var(--r);padding:16px 18px 18px;
+}
+.steps--journey .step__num{font-size:34px;opacity:.85;margin-bottom:6px}
+.steps--journey .step h3{font-size:19px}
+
+/* Geniş ekran: iki sütunlu kaydırmalı zikzak.
+   Kartlar otomatik yerleşir (01-02 üst satır, 03-04 alt satır); çift numaralı
+   kartlara üst boşluk verilerek sağ sütun aşağı kaydırılır ve yolculuk hissi
+   oluşur.
+
+   Neden satır satır negatif boşluk DEĞİL: o yöntemde aynı sütundaki 02 ve 04
+   kartları birbirine biniyordu (ölçüldü: 1400px'te 16px çakışma). Kartların
+   ayrı ızgara satırlarında olması çakışmayı yapısal olarak imkânsız kılıyor —
+   metin uzunluğu değişse bile bozulmaz. */
+@media (min-width:1081px){
+  .steps.steps--journey{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:clamp(26px,3vw,48px) clamp(28px,5vw,64px);
+    align-items:start;   /* kartlar satır yüksekliğine gerilmesin, doğal boyda kalsın */
+  }
+  .steps--journey::before{left:50%;transform:translateX(-1px)}
+  .steps--journey .step{margin-left:0}
+  .steps--journey .step:nth-child(even){margin-top:clamp(54px,7vw,96px)}
+}
+
+/* ---------- 10. ÖNCESİ / SONRASI ---------- */
+.baGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.ba{background:#fff;border:1px solid var(--mist);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--sh-sm)}
+.ba__stage{position:relative;aspect-ratio:4/3.2;overflow:hidden;user-select:none;touch-action:pan-y}
+.ba__layer{position:absolute;inset:0;background-size:cover;background-position:center}
+.ba__layer--after{
+  background-image:
+    radial-gradient(90% 80% at 30% 20%,rgba(22,169,163,.30),transparent 60%),
+    linear-gradient(150deg,#EAF6F6,#D5E9EC);
+}
+.ba__layer--before{
+  background-image:
+    radial-gradient(90% 80% at 70% 25%,rgba(18,50,92,.20),transparent 62%),
+    linear-gradient(150deg,#EEEDE9,#DCDAD3);
+  clip-path:inset(0 calc(100% - var(--pos,50%)) 0 0);
+}
+.ba__layer img{width:100%;height:100%;object-fit:cover}
+.ba__layer[data-photo]::after{
+  content:attr(data-photo);position:absolute;inset:0;
+  display:grid;place-items:center;font-size:13px;font-weight:700;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--navy);opacity:.3;
+}
+.ba__layer:has(img)::after{display:none}
+.ba__tag{
+  position:absolute;top:14px;z-index:4;padding:5px 13px;border-radius:var(--pill);
+  font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  background:rgba(11,34,66,.75);color:#fff;
+}
+.ba__tag--l{left:14px}
+.ba__tag--r{right:14px;background:rgba(14,138,133,.92)}
+.ba__handle{
+  position:absolute;top:0;bottom:0;left:var(--pos,50%);z-index:5;
+  width:3px;margin-left:-1.5px;background:#fff;box-shadow:0 0 0 1px rgba(11,34,66,.12);
+  pointer-events:none;display:grid;place-items:center;
+}
+.ba__handle .ic{width:38px;height:38px;padding:9px;border-radius:50%;background:#fff;color:var(--navy);box-shadow:var(--sh-sm)}
+.ba__range{
+  position:absolute;inset:0;z-index:6;width:100%;height:100%;
+  margin:0;opacity:0;cursor:col-resize;-webkit-appearance:none;appearance:none;background:none;
+}
+.ba figcaption{padding:18px 22px 20px}
+.ba figcaption strong{display:block;font-size:17px;color:var(--navy-900)}
+.ba figcaption span{font-size:14px;color:var(--muted)}
+
+/* ---------- 11. YORUMLAR ---------- */
+.quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.quote{
+  position:relative;background:#fff;border:1px solid var(--mist);
+  border-radius:var(--r-lg);padding:32px 30px;
+  transition:transform var(--t),box-shadow var(--t);
+}
+.quote:hover{transform:translateY(-5px);box-shadow:var(--sh)}
+.quote::before{
+  content:"\201C";position:absolute;right:24px;top:6px;
+  font-size:90px;font-weight:800;color:var(--teal);opacity:.14;line-height:1;
+}
+.quote blockquote{position:relative;margin:18px 0 24px;font-size:16.5px}
+.quote figcaption{display:flex;align-items:center;gap:13px;padding-top:20px;border-top:1px solid var(--mist)}
+.quote__av{
+  width:46px;height:46px;border-radius:50%;flex:none;display:grid;place-items:center;
+  background:linear-gradient(145deg,hsl(var(--h) 42% 70%),hsl(var(--h) 40% 48%));
+  color:#fff;font-weight:800;font-size:18px;
+}
+.quote figcaption strong{display:block;font-size:16px;color:var(--navy-900)}
+.quote figcaption small{font-size:13.5px;color:var(--muted)}
+
+/* ---------- 12. S.S.S. ---------- */
+.faqWrap{display:grid;grid-template-columns:.85fr 1.15fr;gap:clamp(32px,5vw,72px);align-items:start}
+.faqAside{position:sticky;top:110px}
+.faqAside .secLead{margin-bottom:26px}
+/* Altı ayrı kart yerine tek panel: satırlar 1px çizgiyle ayrılıyor.
+   <details>/<summary> semantiği ve js/main.js > initFaq() (aynı anda tek
+   soru açık) aynen duruyor; değişen sadece kabuk. */
+.faq{
+  display:block;background:#fff;
+  border:1px solid var(--mist);border-radius:var(--r-lg);overflow:hidden;
+}
+.faq__item{
+  background:transparent;border:0;border-radius:0;
+  overflow:hidden;
+  /* Cevabın yumuşak açılıp kapanması: satır yüksekliği 0fr -> 1fr geçişi,
+     height:auto'ya animasyon vermenin bağımlılıksız yolu. React bileşenindeki
+     framer-motion height/opacity animasyonunun (0.3s easeInOut) karşılığı. */
+  display:grid;grid-template-rows:auto 0fr;
+  transition:grid-template-rows .3s ease-in-out,border-color var(--t),box-shadow var(--t);
+}
+.faq__item + .faq__item{border-top:1px solid var(--mist)}
+.faq__item[open]{grid-template-rows:auto 1fr;background:var(--paper)}
+/* Kapanış sırasında open niteliği JS tarafından geç kaldırılır; bu sınıf o
+   aralıkta satırı kapatır. JS çalışmazsa tarayıcının anında açma/kapama
+   davranışı aynen geçerli kalır. */
+.faq__item[open].is-closing{grid-template-rows:auto 0fr}
+.faq__item summary{
+  display:flex;align-items:center;gap:16px;justify-content:space-between;
+  /* Parmakla rahat basılsın: min 58px dokunma yüksekliği. */
+  min-height:58px;padding:18px 22px;cursor:pointer;list-style:none;
+  font-size:17px;font-weight:700;color:var(--navy-900);
+  transition:color var(--t),background var(--t);
+}
+.faq__item summary::-webkit-details-marker{display:none}
+/* + / − işareti: iki CSS çizgisi. Açılırken dikey çizgi background-size ile
+   sıfırlanıp işaret eksiye döner, aynı anda 180 derece döner. İkon dosyası
+   ya da kütüphane yok. */
+.faq__item summary::after{
+  content:"";flex:none;width:17px;height:17px;
+  background-image:
+    linear-gradient(var(--teal-700),var(--teal-700)),
+    linear-gradient(var(--teal-700),var(--teal-700));
+  background-repeat:no-repeat;background-position:center,center;
+  background-size:100% 2px,2px 100%;
+  transition:background-size .3s ease,transform .3s ease;
+}
+.faq__item[open] summary::after{background-size:100% 2px,2px 0;transform:rotate(180deg)}
+.faq__item summary:hover{color:var(--teal-700);background:var(--paper)}
+.faq__body{padding:0 22px 20px;font-size:15.5px;line-height:1.62;color:var(--muted);overflow:hidden;min-height:0}
+
+/* ---------- 14. İLETİŞİM ---------- */
+.contact{display:grid;grid-template-columns:1fr 1.1fr;gap:24px;align-items:start}
+/* ---------- İLETİŞİM PANELİ ----------
+   Önceki hâlde beş ayrı büyük kart alt alta diziliyordu; mobilde bölüm
+   gereksiz uzuyor ve "hazır şablon" gibi okunuyordu. Artık tek panel:
+   üstte iki birincil eylem (ara / WhatsApp), altında 1px çizgilerle ayrılmış
+   bilgi satırları. Renk sistemi aynı — lacivert, teal, mist, beyaz. */
+.contact__panel{
+  background:#fff;border:1px solid var(--mist);border-radius:var(--r-lg);
+  overflow:hidden;
+}
+
+.cPanel__acts{
+  display:grid;grid-template-columns:1fr 1fr;gap:10px;
+  padding:20px;background:var(--paper);border-bottom:1px solid var(--mist);
+}
+.cPanel__acts .btn{width:100%;white-space:normal;text-align:center}
+.cPanel__note{
+  grid-column:1 / -1;margin-top:2px;text-align:center;
+  font-size:13.5px;color:var(--muted);
+}
+/* Dar telefonda iki buton yan yana sığmıyor (320px'te satır 272px). */
+@media (max-width:420px){
+  .cPanel__acts{grid-template-columns:1fr;padding:16px}
+}
+
+.cRow{
+  display:flex;align-items:flex-start;gap:14px;
+  padding:18px 20px;transition:background var(--t);
+}
+.cRow + .cRow{border-top:1px solid var(--mist)}
+a.cRow:hover{background:var(--paper)}
+.cRow__ico{
+  width:38px;height:38px;flex:none;border-radius:12px;
+  display:grid;place-items:center;font-size:19px;
+  background:var(--teal-50);color:var(--teal-700);
+}
+/* Bölünemeyen uzun e-posta adresi paneli taşırmasın. */
+.cRow__body{flex:1;min-width:0}
+.cRow__label{
+  display:block;margin-bottom:5px;
+  font-size:11.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--muted);
+}
+.cRow__val{display:block;font-size:15.5px;line-height:1.5;color:var(--navy-900);overflow-wrap:anywhere}
+.cRow__val--big{font-size:19px;font-weight:700;letter-spacing:-.01em}
+.cRow__cta{
+  display:inline-flex;align-items:center;gap:6px;
+  margin-top:10px;padding-block:2px;
+  font-size:13.5px;font-weight:700;color:var(--teal-700);
+}
+.cRow__cta .ic,.cRow__go .ic{transition:transform var(--t)}
+.cRow__go{flex:none;align-self:center;font-size:18px;color:var(--mist);transition:color var(--t)}
+a.cRow:hover .cRow__go{color:var(--teal-700)}
+a.cRow:hover .cRow__go .ic,
+a.cRow:hover .cRow__cta .ic{transform:translateX(4px)}
+.cRow--static{background:var(--paper)}
+.cRow--static .hours{margin-top:4px}
+/* Panel satırı dar: 14.5px'te "Pazartesi – Cumartesi" iki satıra düşüyordu
+   (390px'te satır 250px, metin 258px ölçüldü). 13.5px'te tek satır kalıyor. */
+@media (max-width:1080px){ .cRow--static .hours{font-size:13.5px} }
+/* Harita henüz gömülmemişken yer tutucu 430px boş alan kaplıyordu; dar
+   ekranda kısaltıldı. Gerçek iframe eklenince .contact__map iframe kuralı
+   hâlâ 430px veriyor, yani gömülü harita etkilenmez. */
+@media (max-width:640px){ .contact__map{min-height:320px} }
+.hours{width:100%;margin-top:8px;border-collapse:collapse;font-size:14.5px}
+.hours td{padding:5px 0;color:var(--muted)}
+/* Genis ekranda gun hucresi butun bosluğu yiyip saati kendine yapistiriyordu
+   ("Pazartesi – Cumartesi09:00 – 18:00"). Sag dolgu iki sutunu ayirir. */
+.hours td:first-child{padding-right:18px}
+.hours td:last-child{text-align:right;font-weight:700;color:var(--navy-900)}
+.hours tr.is-closed td:last-child{color:var(--err)}
+
+.contact__map{
+  height:100%;min-height:430px;border-radius:var(--r-lg);overflow:hidden;
+  border:1px solid var(--mist);background:#fff;
+}
+.contact__map iframe{width:100%;height:100%;min-height:430px;border:0;display:block}
+.mapPlaceholder{
+  height:100%;min-height:430px;display:grid;place-content:center;justify-items:center;
+  gap:8px;text-align:center;padding:40px 30px;
+  background:
+    radial-gradient(70% 60% at 50% 40%,rgba(22,169,163,.13),transparent 62%),
+    linear-gradient(160deg,#F3F8F9,#E7EFF3);
+}
+.mapPlaceholder__pin{
+  width:58px;height:58px;border-radius:50%;display:grid;place-items:center;
+  background:var(--navy-900);color:var(--teal);font-size:27px;margin-bottom:8px;
+}
+.mapPlaceholder strong{font-size:21px;color:var(--navy-900)}
+.mapPlaceholder p{font-size:15px;color:var(--muted);margin-bottom:10px}
+.mapPlaceholder small{font-size:12.5px;color:var(--muted);max-width:34ch;margin-top:6px}
+
+/* ---------- 14b. KLİNİKTEN KARELER ---------- */
+.gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.gallery__item{
+  position:relative;aspect-ratio:1;overflow:hidden;
+  border-radius:var(--r-lg);background:var(--paper-2);
+  box-shadow:var(--sh-sm);
+}
+.gallery__item--tall{grid-column:span 2;grid-row:span 2}
+.gallery__item img{
+  width:100%;height:100%;object-fit:cover;
+  transition:transform .7s cubic-bezier(.22,.61,.36,1);
+}
+.gallery__item::after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  /* Başlık fotoğrafın üstünde duruyor: perde, en parlak kareyi de 4.5:1'in
+     altına indirecek kadar koyu olmalı. Ölçüldü — açık kareli galeri
+     görsellerinde en parlak nokta bu değerlerle 4.5:1 üstünde kalıyor. */
+  background:linear-gradient(to top,rgba(11,34,66,.90) 0%,rgba(11,34,66,.34) 40%,transparent 70%);
+  opacity:.95;transition:opacity var(--t);
+}
+.gallery__item figcaption{
+  position:absolute;left:20px;bottom:16px;z-index:2;
+  color:#fff;font-size:14.5px;font-weight:700;letter-spacing:-.01em;
+  text-shadow:0 1px 6px rgba(11,34,66,.5);
+}
+.gallery__item:hover img{transform:scale(1.06)}
+.gallery__item:hover::after{opacity:1}
+
+/* Bento bilgi karoları — foto karolarının arasına giren, config.js'ten beslenen
+   kutular. Bilerek .gallery__item DEĞİLLER: o sınıf fotoğraf için aspect-ratio
+   ve metnin üstüne binen bir perde (::after) getiriyor; metin karosunda ikisi de
+   yanlış olurdu. Görsel dili .perk kartlarıyla aynı: beyaz zemin, mist kenar,
+   lacivert ikon kutusu. */
+.bento{
+  display:flex;flex-direction:column;min-width:0;
+  background:#fff;border:1px solid var(--mist);border-radius:var(--r-lg);
+  padding:26px 24px;
+  transition:transform var(--t),box-shadow var(--t),border-color var(--t);
+}
+.bento:hover{transform:translateY(-4px);box-shadow:var(--sh);border-color:var(--teal-100)}
+.bento--wide{grid-column:span 2}
+.bento__ico{
+  display:grid;place-items:center;width:46px;height:46px;border-radius:14px;flex:none;
+  background:var(--navy-900);color:var(--teal);font-size:23px;margin-bottom:16px;
+}
+.bento__title{font-size:18px;margin-bottom:8px}
+.bento__now{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:6px}
+.bento__text{font-size:15px;color:var(--muted);line-height:1.6}
+.bento__links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 20px;margin-top:4px}
+.bento__links a{
+  display:block;padding:9px 0;font-size:15px;color:var(--navy);
+  border-bottom:1px solid var(--mist);transition:color var(--t);
+}
+.bento__links a:hover{color:var(--teal-700)}
+.bento__link{
+  display:inline-flex;align-items:center;gap:7px;margin-top:auto;padding-top:14px;
+  font-size:14.5px;font-weight:700;color:var(--teal-700);
+}
+.bento__link .ic{transition:transform var(--t)}
+.bento__link:hover .ic{transform:translateX(4px)}
+
+/* ---------- 15. CTA ŞERİDİ ---------- */
+.ctaStrip{
+  position:relative;isolation:isolate;overflow:hidden;
+  background:var(--navy);color:#fff;
+}
+.ctaStrip__bg{
+  position:absolute;inset:0;z-index:-2;
+  width:100%;height:100%;object-fit:cover;object-position:center 42%;
+}
+.ctaStrip::after{
+  content:"";position:absolute;inset:0;z-index:-1;
+  /* Perde: fotograf artik taninabilir bir yuz degil, hafif bir doku.
+     Ayni --navy, %95 -> zemin duz kalir ama derinlik tamamen kaybolmaz.
+     Footer --navy-900 (daha koyu) oldugu icin serit/footer arasinda
+     gradient olmadan da net bir ton basamagi kaliyor. */
+  background:rgba(18,50,92,.95);
+}
+.ctaStrip__in{position:relative;display:flex;align-items:center;justify-content:space-between;gap:30px;flex-wrap:wrap;padding-block:clamp(40px,5vw,64px)}
+.ctaStrip h2{color:#fff;font-size:clamp(25px,3.2vw,38px)}
+.ctaStrip p{margin-top:9px;color:#fff;font-size:17px}   /* saydam beyaz 4.5:1'in altına düşüyordu */
+.ctaStrip__btns{display:flex;gap:12px;flex-wrap:wrap}
+
+/* ---------- 16. FOOTER ---------- */
+.footer{background:var(--navy-900);color:rgba(255,255,255,.68);padding-top:clamp(52px,6vw,78px)}
+
+/* Randevu şeridi — footer'ın en üstünde tek satır. Alt bloktaki ayırıcıyla
+   aynı dil: 1px çizgi, ekstra kart/gradient yok. */
+.footer__cta{
+  display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;
+  padding-bottom:32px;margin-bottom:34px;border-bottom:1px solid rgba(255,255,255,.1);
+}
+.footer__cta p{color:#fff;font-size:clamp(17px,1.9vw,21px);font-weight:700;letter-spacing:-.01em}
+
+.footer__in{display:grid;grid-template-columns:1.5fr 1fr 1fr 1.15fr;gap:40px;padding-bottom:48px}
+.logoPlate{display:inline-block;background:#fff;border-radius:14px;padding:10px 14px}
+.logoPlate img{height:44px;width:auto;mix-blend-mode:multiply}
+.footer__brand > p{margin-top:18px;font-size:16px;max-width:30ch}
+/* WhatsApp CTA marka sütununda: görünüm mevcut .btn--wa'dan gelir,
+   burada yalnızca üst boşluğu veriliyor. */
+.footer__brand > .btn{margin-top:22px}
+.footer__col h4{color:#fff;font-size:16px;margin-bottom:18px}
+
+/* Katlanabilir link grupları. <details> varsayılan KAPALI gelir; 641px ve
+   üstünde aşağıdaki min-width kuralı içeriği her zaman açık gösterir ve
+   başlığı tıklanamaz yapar — masaüstü görünümü değişmez. */
+.footer__col--fold > summary{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  margin-bottom:18px;cursor:pointer;list-style:none;
+}
+.footer__col--fold > summary::-webkit-details-marker{display:none}
+.footer__col--fold > summary h4{margin-bottom:0}
+.footer__col--fold > summary::after{
+  content:"";width:8px;height:8px;flex:none;transform:rotate(45deg);
+  border-right:2px solid rgba(255,255,255,.5);border-bottom:2px solid rgba(255,255,255,.5);
+  transition:transform var(--t);
+}
+.footer__col--fold[open] > summary::after{transform:rotate(-135deg)}
+@media (min-width:641px){
+  /* Açık/kapalı durumu initFooterFolds() yönetiyor; burada yalnızca
+     masaüstünde başlık tıklanamaz olur ve ok işareti gizlenir. */
+  .footer__col--fold > summary{pointer-events:none}
+  .footer__col--fold > summary::after{display:none}
+}
+.footer__col a{display:block;padding:11px 0;font-size:15px;transition:color var(--t),transform var(--t)}
+.footer__col a:hover{color:var(--teal);transform:translateX(4px)}
+
+/* "Şu an açık / kapalı" göstergesi — üst şeritte ve footer'da */
+.openNow{display:inline-flex;align-items:center;gap:7px}
+.openNow::before{
+  content:"";width:8px;height:8px;border-radius:50%;flex:none;
+  background:var(--muted);
+}
+.openNow.is-open::before{background:#1FA971;box-shadow:0 0 0 3px rgba(31,169,113,.18)}
+.footer__col .openNow{padding:11px 0;font-size:15px;color:rgba(255,255,255,.72)}
+.footer__col .openNow.is-open::before{box-shadow:0 0 0 3px rgba(31,169,113,.25)}
+
+.social{display:flex;gap:10px;margin-top:22px}
+.social a{
+  width:42px;height:42px;border-radius:12px;display:grid;place-items:center;font-size:19px;
+  background:rgba(255,255,255,.09);color:#fff;
+  transition:background var(--t),transform var(--t);
+}
+.social a:hover{background:var(--teal);transform:translateY(-3px)}
+
+.footer__bottom{
+  display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;
+  padding-block:24px;border-top:1px solid rgba(255,255,255,.1);font-size:13.5px;
+}
+/* Sabit "yukari cik" dugmesi sol altta duruyor (ust kenari ekranin altindan
+   60-68px yukarida). Sayfanin en altina inildiginde alt seridin sol alt
+   satiri onun altinda kaliyordu:
+     - tek satira sigan genis ekranda telif satirinin "©" isareti,
+     - <=1180px'te satirlar alt alta dizildigi icin "Aydinlatma Metni (KVKK)"
+       linki (900px'te yasal metin).
+   Genis ekranda telif satiri sola dolgu ile, dar ekranda serit alt bosluk
+   (dugmenin ustunde kalacak kadar) ile kurtariliyor. Olculdu: cakisma yok. */
+@media (min-width:1181px){ .footer__bottom > p:first-child{padding-left:44px} }
+@media (max-width:1180px){ .footer__bottom{padding-bottom:80px} }
+.footer__legal{color:rgba(255,255,255,.5);max-width:62ch}
+.footer__corp{color:rgba(255,255,255,.62);max-width:62ch}
+.footer__links a{
+  display:inline-block;padding:11px 0;color:rgba(255,255,255,.72);
+  text-decoration:underline;text-underline-offset:3px;
+}
+.footer__links a:hover{color:#fff}
+
+/* ---------- 16d. TEDAVİ SAYFALARI ---------- */
+.iconLib{display:none}
+
+.crumbs{display:flex;gap:9px;flex-wrap:wrap;align-items:center;font-size:14px;color:var(--muted)}
+.crumbs a{display:inline-block;padding:8px 0;color:var(--navy);font-weight:600}
+.crumbs a:hover{color:var(--teal-700)}
+.crumbs [aria-current]{color:var(--muted)}
+
+.tedaviHero__in{max-width:64ch;margin-top:26px}
+.tedaviHero__ico{
+  display:grid;place-items:center;width:58px;height:58px;border-radius:17px;
+  background:var(--teal-50);color:var(--teal-700);font-size:29px;margin-bottom:22px;
+}
+.tedaviHero h1{margin-bottom:0}
+.tedaviHero__cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:32px}
+
+.tedavi{display:grid;grid-template-columns:1.55fr .85fr;gap:clamp(30px,4.5vw,60px);align-items:start}
+.tedavi__body{max-width:68ch}
+.tedavi__body h2{font-size:clamp(22px,2.6vw,28px);color:var(--navy-900);letter-spacing:-.02em}
+.tedavi__body h2:not(:first-child){margin-top:44px}
+.tedavi__body h3{margin-top:34px;font-size:19px;color:var(--navy-900)}
+.tedavi__body p{margin-top:15px;font-size:16.5px;color:var(--muted);line-height:1.78}
+.tedavi__body .tickList{margin-top:20px}
+.tickList--warn .ic{color:var(--navy);background:var(--navy-50)}
+
+.sideCard{
+  background:#fff;border:1px solid var(--mist);border-radius:var(--r-lg);
+  padding:26px 26px 24px;box-shadow:var(--sh-sm);position:sticky;top:100px;
+}
+.sideCard h3{display:flex;align-items:center;gap:10px;font-size:17px;color:var(--navy-900)}
+.sideCard h3 .ic{font-size:20px;color:var(--teal-700)}
+.sideCard__list{margin-top:18px;display:grid;gap:14px}
+.sideCard__list div{display:grid;gap:3px;padding-bottom:13px;border-bottom:1px solid var(--mist)}
+.sideCard__list div:last-child{border-bottom:0;padding-bottom:0}
+.sideCard__list dt{font-size:13.5px;font-weight:700;color:var(--teal-700)}
+.sideCard__list dd{margin:0;font-size:15.5px;color:var(--navy-900)}
+.sideCard__note{margin:16px 0 18px;font-size:13.5px;color:var(--muted);line-height:1.6}
+
+.sideNav{margin-top:24px;padding:22px 26px;background:var(--paper-2);border-radius:var(--r-lg)}
+.sideNav h3{font-size:15px;color:var(--navy-900);margin-bottom:14px}
+.sideNav a{
+  display:block;padding:9px 0;font-size:15px;font-weight:600;color:var(--navy);
+  border-bottom:1px solid var(--mist);
+}
+.sideNav a:last-child{border-bottom:0}
+.sideNav a:hover{color:var(--teal-700)}
+
+/* ---------- 16c. 404 SAYFASI ---------- */
+.notFound{max-width:64ch;padding-block:clamp(20px,5vw,60px)}
+.notFound h1{margin-top:14px}
+.notFound__cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:34px}
+.notFound__links{
+  display:flex;gap:10px 26px;flex-wrap:wrap;
+  margin-top:38px;padding-top:26px;border-top:1px solid var(--mist);
+}
+.notFound__links a{display:inline-block;padding-block:3px;font-weight:600;color:var(--navy);font-size:15.5px}
+.notFound__links a:hover{color:var(--teal-700)}
+.notFound__phone{margin-top:26px;font-size:15.5px;color:var(--muted)}
+.notFound__phone a{font-weight:700;color:var(--teal-700);text-decoration:underline;text-underline-offset:3px}
+
+/* ---------- 16b. YASAL METİN SAYFASI (kvkk.html) ---------- */
+.legal{max-width:72ch}
+.legal h1{margin-top:14px}
+.legal > p{margin-top:16px;color:var(--muted);font-size:16.5px;line-height:1.75}
+.legal h2{
+  margin-top:42px;font-size:clamp(19px,2.2vw,23px);
+  color:var(--navy-900);letter-spacing:-.02em;
+}
+.legal h2 + p{margin-top:12px}
+.legal ul{margin-top:14px;display:grid;gap:10px;padding-left:22px;list-style:disc}
+.legal li{color:var(--muted);font-size:16px;line-height:1.7}
+.legal strong{color:var(--navy-900)}
+.legal em{font-style:italic}
+.legal__meta{list-style:none;padding-left:0;margin-top:16px;gap:8px}
+.legal__meta li{
+  display:flex;gap:12px;flex-wrap:wrap;
+  padding:10px 0;border-bottom:1px solid var(--mist);
+}
+.legal__meta span{flex:none;min-width:108px;font-weight:700;color:var(--navy)}
+.legal__note{
+  margin-top:16px;padding:14px 18px;border-radius:var(--r);
+  background:var(--teal-50);border-left:3px solid var(--teal);
+  color:var(--navy);font-size:15.5px;line-height:1.65;
+}
+.legal__updated{margin-top:40px;font-size:14.5px;color:var(--muted)}
+.legal__back{margin-top:16px}
+.legal__back a{display:inline-block;padding-block:2px;font-weight:700;color:var(--teal-700);text-decoration:underline;text-underline-offset:3px}
+
+/* ---------- 17. YÜZEN BUTONLAR ---------- */
+.waFab{
+  position:fixed;right:22px;bottom:22px;z-index:95;
+  display:inline-flex;align-items:center;gap:0;
+  height:60px;padding:0 18px;border-radius:var(--pill);
+  background:var(--wa);color:#fff;font-size:26px;
+  box-shadow:0 14px 34px -10px rgba(12,122,89,.6);
+  transition:gap var(--t),background var(--t),transform var(--t),opacity var(--t),visibility var(--t);
+}
+/* Footer ekrana girince balon cekiliyor: footer'in kendi "WhatsApp'tan Yaz"
+   butonu zaten orada, ustelik balon alt seritteki "Aydinlatma Metni (KVKK)"
+   linkinin uzerine biniyordu (olculdu: 1280px'te link balonun altinda kaliyor).
+   Sinifi js/main.js > initScroll() koyup kaldiriyor. */
+.waFab.is-off{opacity:0;visibility:hidden;transform:translateY(14px);pointer-events:none}
+.waFab__label{
+  max-width:0;overflow:hidden;white-space:nowrap;font-size:15.5px;font-weight:700;
+  transition:max-width .4s cubic-bezier(.22,.61,.36,1);
+}
+.waFab:hover{gap:11px;background:var(--wa-700);transform:translateY(-3px)}
+.waFab:hover .waFab__label{max-width:190px}
+
+.toTop{
+  position:fixed;left:22px;bottom:22px;z-index:95;
+  width:46px;height:46px;border-radius:50%;display:grid;place-items:center;
+  background:#fff;color:var(--navy);font-size:19px;box-shadow:var(--sh);
+  transform:translateY(20px);opacity:0;visibility:hidden;
+  transition:opacity var(--t),transform var(--t),visibility var(--t),background var(--t),color var(--t);
+}
+.toTop .ic{transform:rotate(-90deg)}
+.toTop.is-on{opacity:1;visibility:visible;transform:translateY(0)}
+.toTop:hover{background:var(--navy);color:#fff}
+
+/* ---------- 18. DUYARLI ---------- */
+@media (max-width:1180px){
+  .nav > a{padding:10px 10px;font-size:14.5px}
+  .nav > a::after{left:10px;right:10px}
+}
+
+@media (max-width:1080px){
+  .hero__in{grid-template-columns:1fr;gap:44px}
+  .hero__visual{max-width:520px;margin-inline:auto;width:100%}
+  .photo--hero{aspect-ratio:4/5}
+  .floatCard--a{left:-2%}
+  .floatCard--b{right:-2%}
+  .perks,.cards,.steps,.baGrid,.quotes{grid-template-columns:repeat(2,1fr)}
+  /* DİKKAT — "1fr" aslında minmax(auto,1fr)'dir: sütun, içindeki öğelerin
+     min-content boyutunun ALTINA İNEMEZ. Randevu formundaki <select>'in uzun
+     seçenek metni ("Gülüş tasarımı (veneer / zirkonyum)") 310px'lik bir
+     min-content dayatıp sütunu kabından taşırıyordu. minmax(0,1fr) sütunun,
+     min-width:0 ise öğenin daralmasına izin verir — ikisi birlikte gerekli.
+     Bunları geri almayın, dar telefonlarda sayfa yatay kayar. */
+  .about,.faqWrap,.contact{grid-template-columns:minmax(0,1fr)}
+  .about > *,.faqWrap > *,.contact > *{min-width:0}
+  /* Izgara tek sütuna inince sütun 1032/720/592px oluyor; medya 480px'le
+     sınırlı olduğu için stretch uygulanamıyor ve öğe sola düşüyordu (ölçüldü:
+     sağda 576/264/136px boşluk). margin-inline:auto ortalıyor.
+     width:100% ŞART — auto dış boşluk grid item'ın stretch boyutlandırmasını
+     kapatıyor; genişlik kesin olmazsa öğe içeriğine göre büzülüp 0'a çöküyor
+     (.photo--about'un içindeki img de width:100% olduğu için döngü sıfırlanıyor;
+     640px ve altında ölçüldü). */
+  .about__media{width:100%;max-width:480px;margin-inline:auto}
+  .faqAside{position:static}
+  .footer__in{grid-template-columns:1fr 1fr}
+  .gallery{grid-template-columns:repeat(2,1fr)}
+  /* 4 sütunda "tall" karo 2 sütun kaplıyor ve dengeyi kuruyor. 2 sütuna
+     inince aynı span ızgaranın TAMAMI oluyor; aspect-ratio:1 yüzünden karo
+     tam genişlikte bir kareye dönüşüp aşırı büyüyor (1080px'de 1017x1017
+     ölçüldü). Dar ızgarada tek sütuna indiriliyor.
+     grid-row da span 1 olmalı: kart tek sütunda aspect-ratio:1 yüzünden
+     bir satır boyunda kalıyor ama span 2 iki satır rezerve ediyordu; altında
+     boş bir hücre kalıyordu (1080px'de 517.5px ölçüldü). */
+  .gallery__item--tall{grid-column:span 1;grid-row:span 1}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .stat:nth-child(2){border-right:0}
+  .stat:nth-child(-n+2){border-bottom:1px solid var(--mist)}
+}
+
+@media (max-width:1080px){
+  .topbar__in{gap:16px}
+  .topbar__item:not(.topbar__phone){display:none}
+  .topbar__phone{margin-left:0}
+
+  .header__in{min-height:70px}
+  .burger{display:block}
+  .header__actions .btn--primary,.header__actions .btn--ghost{display:none}
+
+  /* Mobil menü — header'ın hemen altına açılan tam genişlikte panel.
+     DİKKAT: burada position:fixed KULLANILAMAZ. .header'daki backdrop-filter
+     sabit konumlu çocukları için kapsayıcı blok üretiyor; fixed panel ekrana
+     değil header kutusuna yapışıp içine hapsoluyor. .header sticky olduğu için
+     absolute + top:100% paneli hep ekranın üstüne sabitler. */
+  .nav{
+    position:absolute;top:100%;left:0;right:0;z-index:99;
+    width:auto;margin:0;
+    flex-direction:column;align-items:stretch;gap:0;
+    background:var(--paper);padding:8px 20px 22px;
+    border-bottom:1px solid var(--mist);
+    box-shadow:0 26px 50px -26px rgba(11,34,66,.55);
+    max-height:calc(100vh - 115px);
+    max-height:calc(100dvh - 115px);
+    overflow-y:auto;overscroll-behavior:contain;
+    opacity:0;visibility:hidden;transform:translateY(-10px);pointer-events:none;
+    transition:opacity var(--t),transform var(--t),visibility var(--t);
+  }
+  .nav.is-open{opacity:1;visibility:visible;transform:none;pointer-events:auto}
+  .nav > a,.navGroup__top{padding:15px 4px;font-size:17px;border-bottom:1px solid var(--mist);border-radius:0}
+  .nav__ind{display:none}
+  .navGroup{display:block}
+  .navGroup__top{display:flex;width:100%}
+  .navGroup__caret{display:none}
+  /* Alt menü mobilde açılır kutu değil, girintili liste */
+  .navGroup__menu{
+    /* visibility/pointer-events: "visible/auto" YAZILAMAZ — kapali .nav
+       visibility:hidden + pointer-events:none iken bu iki deger onlari ezip
+       gorunmez ama TIKLANABILIR bir katman birakiyordu (hero uzerindeki
+       tiklar tedavi sayfalarina gidiyordu). "inherit" .nav'in durumunu izler:
+       menu kapaliyken kapali, .nav.is-open iken acik. Gorunum degismez. */
+    position:static;opacity:1;visibility:inherit;transform:none;pointer-events:inherit;
+    min-width:0;background:transparent;border:0;box-shadow:none;padding:0 0 0 14px;
+  }
+  .navGroup__menu a{padding:12px 4px;font-size:15.5px;border-bottom:1px solid var(--mist);border-radius:0;color:var(--muted)}
+  .nav > a::after{display:none}
+  .nav > a.is-active{color:var(--teal-700)}
+  .nav__mobileCta{display:grid;gap:10px;margin-top:20px}
+
+
+  .badgeCard{right:-10px;padding:18px 20px}
+  .badgeCard__num{font-size:31px}
+  .ctaStrip__in{flex-direction:column;align-items:flex-start}
+}
+
+@media (max-width:900px){
+  .tedavi{grid-template-columns:1fr}
+  .sideCard{position:static}
+}
+
+@media (max-width:640px){
+  body{font-size:16px}
+  .perks,.cards,.steps,.baGrid,.quotes{grid-template-columns:1fr}
+  /* Dar ekranda metin karosu yarım sütuna sığmıyor: tam genişliğe geçer.
+     grid-auto-flow:dense, tam genişlik karonun arkasında kalan tek hücreyi
+     sonraki fotoğrafla doldurur — ızgarada boşluk kalmasın. */
+  .gallery{gap:12px;grid-auto-flow:dense}
+  /* Kapalı link grubu ile bir sonraki grup arasındaki boşluğu daralt. */
+  .footer__col--fold:not([open]) > summary{margin-bottom:0}
+  .footer__cta{padding-bottom:26px;margin-bottom:28px}
+  .gallery__item figcaption{left:14px;bottom:12px;font-size:13px}
+  .bento{grid-column:span 2;padding:22px 20px}
+  .bento__links{grid-template-columns:1fr}
+  .footer__in{grid-template-columns:1fr;gap:32px}
+  .hero__cta .btn{width:100%}
+  /* MOBIL HERO KARTI — "Steril Ortam" kaldirildi: ayni bilgi hemen ustteki
+     hero maddesinde ("Her hasta icin tek kullanimlik steril set") zaten
+     yaziyor, kart onu tekrar ediyordu. Yerine ziyaretcinin telefonda en cok
+     aradigi bilgi geliyor: randevu saatleri (ust seritteki saat bilgisi
+     <=1080px'te gizleniyor, mobilde baska hicbir yerde gorunmuyordu).
+     Yerlesim: fotografin ALT kenari — yuz ust-orta bolgede kaldigi icin
+     kapanmaz; iki yandan 14px iceri girintili, ekran kenarina yapismaz;
+     "bob" salinimi kapali, fotograf uzerinde huzursuz durmasin. */
+  .floatCard--a{display:none}
+  .floatCard--b{
+    display:block;left:14px;right:14px;top:auto;bottom:-16px;
+    width:auto;padding:13px 15px;animation:none;
+  }
+  .floatCard--b .floatCard__big{font-size:13.5px;margin-bottom:6px}
+  .floatCard--b .floatCard__hours{display:none}   /* masaustu tek satir ozeti */
+  .floatCard--b .floatCard__link{display:none}    /* hemen ustte "Randevu Al" var */
+  .floatCard--b .floatCard__days{display:block}
+
+  /* Cok dar telefonlarda "Pazartesi – Cumartesi" iki satira dusuyordu
+     (olculdu: 320px'te kart 144px yuksekliyle fotografin %37'sini
+     kapatiyordu). Punto ve dolgu bir tik kisilinca satir tek kaliyor,
+     kart 110px'e iniyor. */
+  @media (max-width:360px){
+    .floatCard--b{left:12px;right:12px;padding:12px 13px}
+    .floatCard--b .floatCard__days li{font-size:11.5px;gap:8px}
+  }
+  .photo--hero{aspect-ratio:4/5}
+  .waFab{right:14px;bottom:14px;height:56px;padding:0 16px}
+  .waFab:hover .waFab__label{max-width:0}
+  .toTop{left:14px;bottom:14px}
+  .stat{padding:22px 14px}
+  .step{padding-top:26px}
+  /* Mobilde önce içerik, sonra fotoğraf: bölüm "Hakkımızda" başlığıyla açılsın,
+     428px'lik görsel ne anlatıldığı söylenmeden gelmesin. order YALNIZCA bu
+     blokta tanımlı — masaüstü (iki sütun) ve 1080/768px düzeni etkilenmez.
+     Erişilebilirlik: .about__media içinde odaklanabilir öğe yok (ölçüldü:
+     media=0, copy=1), bu yüzden görsel sıra ile Tab sırası ayrışmıyor.
+     Boşluk: fotoğraf alta taşındığı için 10px alt boşluk üste alındı;
+     ızgaranın 34px satır boşluğuna eklenmesin diye alt boşluk sıfırlandı. */
+  /* Fotoğraf ile hekim kartı tek bir görsel grup gibi okunsun: aradaki
+     satır boşluğu daraltılıp fotoğrafın üst boşluğu sıfırlanıyor ve
+     fotoğraf mobilde ölçülü bir genişliğe çekiliyor. Kadraj sistemine
+     (aspect-ratio 4/5, scale 1.32, origin 26% 24%) dokunulmuyor. */
+  .about{gap:20px}
+  .about__media{order:1;margin-top:0;margin-bottom:0;max-width:320px}
+  .docCard{margin-top:22px;padding:18px}
+  .docCard__cta{margin-top:16px}
+}
+
+/* Çok dar telefonlar — butonlara nefes alanı, uzun etiketler az satıra sarsın */
+@media (max-width:420px){
+  .btn{padding:14px 16px}
+  .btn--lg{padding:16px 14px;font-size:15.5px}
+}
+
+/* Yolculuk düzeni — çok dar ekranda omurga ve girinti daralır */
+@media (max-width:640px){
+  .steps--journey::before{left:13px}
+  .steps--journey .step{margin-left:32px;padding:16px}
+  .steps--journey .step__panel{padding:14px 15px 16px}
+}
+
+/* Hekim kartı — dar ekranda avatar ve metin dikey diziliyor */
+@media (max-width:420px){
+  .docCard{padding:20px}
+  .docCard__head{gap:14px}
+  .docCard__avatar{width:56px;height:56px}
+}
+
+/* ---------- 19. YAZDIRMA ---------- */
+/* Yolculuk düzeni — dar ekranda kart dolgusu, ikon ve numara ölçüleri
+   kompaktlaşır. Kesikli omurga, kart girintisi ve sıra (01→04) korunur;
+   yalnızca dikey hacim azalır. Masaüstü (min-width:1081px) etkilenmez. */
+@media (max-width:640px){
+  .steps.steps--journey{gap:12px}
+  .steps--journey .step{padding:14px}
+  .steps--journey .step__ico{width:40px;height:40px;border-radius:12px;font-size:20px;margin-bottom:10px}
+  .steps--journey .step__panel{padding:12px 13px 14px}
+  .steps--journey .step__num{font-size:28px;margin-bottom:4px}
+  .steps--journey .step h3{font-size:17.5px;margin-bottom:8px}
+  .steps--journey .step p{font-size:14.5px}
+}
+/* Çok dar telefonlarda omurga ve girinti biraz daha daralır — karta genişlik kazandırır. */
+@media (max-width:380px){
+  .steps--journey::before{left:11px}
+  .steps--journey .step{margin-left:28px;padding:13px}
+  .steps--journey .step__panel{padding:11px 12px 13px}
+}
+
+/* Tedavi kartları ≤768px'te yatay kaydırmalı şerit olur: 6 kart alt alta
+   dizilmek yerine tek satırda kalır, ~1 kart görünür ve sonrakinden bir
+   parça görünerek kaydırma sezdirilir. Şerit .wrap'in iç boşluğunu negatif
+   dış boşlukla iptal edip ekran kenarına taşınıyor; taşma .cards içinde
+   kaldığı için sayfanın kendisi yatay kaymaz. JS/kütüphane yok. */
+@media (max-width:768px){
+  .cards{
+    display:flex;grid-template-columns:none;gap:14px;
+    overflow-x:auto;overscroll-behavior-x:contain;
+    scroll-snap-type:x mandatory;scroll-padding-left:var(--gut);
+    margin-inline:calc(var(--gut) * -1);padding-inline:var(--gut);
+    padding-bottom:10px;
+    scrollbar-width:thin;scrollbar-color:var(--mist) transparent;
+  }
+  .cards > .card{flex:0 0 84vw;max-width:340px;scroll-snap-align:start}
+  .cards::-webkit-scrollbar{height:6px}
+  .cards::-webkit-scrollbar-thumb{background:var(--mist);border-radius:999px}
+  .cards::-webkit-scrollbar-track{background:transparent}
+}
+
+/* ---------- 9b. SÜREÇ ŞERİDİ (yatay akış) ----------
+   .is-slider sınıfını js/main.js > initSurecSlider() ekler; JS çalışmazsa
+   bölüm eski dikey yolculuk düzeninde kalır (aşamalı iyileştirme).
+   Kaydırma native scroll-snap ile; kütüphane yok. Şerit .wrap'in iç
+   boşluğunu negatif dış boşlukla iptal edip ekran kenarına taşınır,
+   taşma şeridin içinde kaldığı için sayfa yatay kaymaz. */
+.steps.steps--journey.is-slider{
+  display:flex;grid-template-columns:none;gap:16px;align-items:stretch;
+  overflow-x:auto;overscroll-behavior-x:contain;
+  scroll-snap-type:x mandatory;
+  /* Kart genisligi tek yerde: asagidaki .step flex-basis'i de bunu kullanir. */
+  --adim-w:clamp(250px,80vw,380px);
+  /* Aktif adim ortada dursun: sol dolgu = (ekran - kart) / 2. Boylece
+     ONCEKI adim solda, SONRAKI adim sagda esit paylarla gorunur — masaustu
+     fan modundaki "arkada duran komsular" hissinin dar ekran karsiligi.
+     Onceki halde deger var(--gut) idi: kart sol kenara yasliyor, solda hic
+     peek kalmiyordu (olculdu: 414-320px araliginda sol pay 0px). */
+  scroll-padding-left:calc((100vw - var(--adim-w)) / 2);
+  /* Yan dolgu scroll-padding ile ayni olmali: yoksa serit sona dayaniyor ve
+     son adimlar hedef konuma ULASAMIYOR (olculdu: 768px'te scrollLeft
+     maksimuma takilip 03. adim -32px'e, ekran disina kayiyordu). */
+  margin-inline:calc(var(--gut) * -1);
+  padding-inline:max(var(--gut),calc((100vw - var(--adim-w)) / 2));
+  /* Yan kartların geriye çekilme hissi için sahne derinliği. Değer bilerek
+     yüksek: dönüş çok hafif kalsın, klinik dili bozulmasın. */
+  perspective:1600px;
+  /* Aktif kartın gölgesi ve hover'daki 4px yükselme kırpılmasın diye pay. */
+  padding-block:14px 18px;
+  scrollbar-width:none;
+}
+.steps--journey.is-slider::-webkit-scrollbar{display:none}
+/* Dikey kesikli omurga yatay düzende anlamsız — kapanır, yerini 01→04
+   göstergesi alır. */
+.steps--journey.is-slider::before{display:none}
+.steps--journey.is-slider > .step{
+  /* Genislik yukaridaki --adim-w'den; scroll-padding hesabiyla ayni deger. */
+  flex:0 0 var(--adim-w);
+  margin-left:0;margin-top:0;scroll-snap-align:start;
+  /* --- Yan adimlar aktifin ARKASINA cekilir ---------------------------
+     Onceki halde komsu kartlar aktifin YANINDA duruyordu (olculdu: aktifle
+     ortusme 0px); serit gorunumu masaustundeki fan dilini tasimiyordu.
+     --adim-kay kadar aktife dogru kaydirilip alt katmana alindiklarinda
+     bir kismi aktifin arkasinda kalir, kalani kenardan gorunur.
+     KRITIK: kaydirma yalnizca TRANSFORM — yerlesim kutulari yerinde kalir,
+     bu yuzden scroll-snap, native swipe ve JS'in indeks hesabi degismez. */
+  --adim-kay:36px;
+  transform-origin:right center;z-index:1;
+  transform:translateX(var(--adim-kay)) perspective(1600px) rotate(1.5deg) scale(.93);
+  opacity:.3;
+  transition:transform .5s cubic-bezier(.22,.61,.36,1),opacity .35s ease,
+             border-color var(--t),box-shadow var(--t);
+}
+.steps--journey.is-slider > .step:nth-child(even){margin-top:0}
+/* Komşu adım: uzak adımdan bir tık belirgin — sira hissi korunsun. */
+.steps--journey.is-slider > .step.is-near{opacity:.45}
+/* Aktifin SAGINDA kalan adimlar: ayna yonde. */
+.steps--journey.is-slider > .step.is-active ~ .step{
+  transform-origin:left center;
+  transform:translateX(calc(var(--adim-kay) * -1)) perspective(1600px) rotate(-1.5deg) scale(.93);
+}
+/* Aktif adım: düz, tam opak, en ustte, teal kenar ve daha belirgin gölge. */
+.steps--journey.is-slider > .step.is-active{
+  transform:none;opacity:1;z-index:3;border-color:var(--teal-100);box-shadow:var(--sh);
+}
+/* Hover'da kart hafifçe öne gelir — ölçek korunur, zıplama olmaz. */
+.steps--journey.is-slider > .step:hover{
+  transform:translateX(var(--adim-kay)) perspective(1600px) rotate(1.5deg) scale(.955) translateY(-4px);
+  opacity:.6;box-shadow:var(--sh-sm);
+}
+.steps--journey.is-slider > .step.is-active ~ .step:hover{
+  transform:translateX(calc(var(--adim-kay) * -1)) perspective(1600px) rotate(-1.5deg) scale(.955) translateY(-4px);
+}
+.steps--journey.is-slider > .step.is-active:hover{
+  transform:translateY(-4px);opacity:1;box-shadow:var(--sh-lg);
+}
+/* Hareket azaltma tercihinde derinlik efekti kapanır, hiyerarşi opaklıkla kalır. */
+@media (prefers-reduced-motion:reduce){
+  .steps--journey.is-slider > .step,
+  .steps--journey.is-slider > .step:hover{transform:none}
+}
+
+/* --- Card Fan: 1081px ve üstünde kartlar yelpaze olarak yığılır ---------
+   Konum/ölçek/dönüş değerlerini js/main.js > fanYerlestir() satır içi verir
+   (CSS abs() desteği beklemeden çalışsın diye). Buradaki kurallar yalnızca
+   düzeni, geçiş eğrisini ve derinlik hissini tanımlar. Kartlar birbirini
+   tamamen örtmez; taşma olmadığı için kırpma da gerekmez. */
+.steps.steps--journey.is-fan{
+  display:block;position:relative;
+  grid-template-columns:none;gap:0;
+  margin-inline:0;padding-inline:0;padding-block:8px 0;
+  overflow:visible;scroll-snap-type:none;
+  perspective:1500px;
+}
+.steps--journey.is-fan::before{display:none}
+.steps--journey.is-fan > .step{
+  position:absolute;top:0;left:50%;
+  width:min(420px,36vw);margin:0;
+  transform-origin:50% 118%;
+  will-change:transform,opacity;
+  transition:transform .55s cubic-bezier(.22,.61,.36,1),opacity .45s ease,
+             box-shadow var(--t),border-color var(--t);
+}
+/* Öndeki kart: tam opak, teal kenar, daha belirgin gölge. */
+.steps--journey.is-fan > .step.is-active{
+  border-color:var(--teal-100);box-shadow:var(--sh-lg);cursor:default;
+}
+/* Arkadaki kartlar tıklanabilir: üstüne gelince imleç değişir. */
+.steps--journey.is-fan > .step:not(.is-active){cursor:pointer;box-shadow:var(--sh-sm)}
+.steps--journey.is-fan > .step:not(.is-active):hover{box-shadow:var(--sh)}
+
+/* 01 → 04 göstergesi ve oklar */
+.surecNav{display:flex;align-items:center;gap:12px;margin-top:20px}
+.surecNav__dots{display:flex;gap:8px;flex:1;list-style:none;margin:0;padding:0}
+/* >=641px: ok + numaralar tek bir kume olarak ortalanir. Onceki halinde
+   noktalar sola yigiliyor, "sonraki" oku ise sayfanin sag kenarinda kalip
+   sabit WhatsApp balonunun altina giriyordu (olculdu: 52x60px cakisma). */
+@media (min-width:641px){
+  .surecNav{justify-content:center}
+  .surecNav__dots{flex:0 1 auto}
+}
+.surecNav__dots button{
+  min-width:46px;padding:9px 10px;cursor:pointer;
+  border:1px solid var(--mist);border-radius:var(--pill);background:#fff;
+  font-size:13px;font-weight:700;letter-spacing:.06em;color:var(--muted);
+  transition:background var(--t),color var(--t),border-color var(--t);
+}
+.surecNav__dots button:hover{border-color:var(--navy);color:var(--navy)}
+.surecNav__dots button.is-active{background:var(--navy-900);border-color:var(--navy-900);color:var(--teal)}
+.surecNav__ok{
+  display:grid;place-items:center;width:44px;height:44px;flex:none;cursor:pointer;
+  border:1px solid var(--mist);border-radius:50%;background:#fff;color:var(--navy);
+  transition:background var(--t),border-color var(--t),opacity var(--t);
+}
+.surecNav__ok:hover:not(:disabled){border-color:var(--navy);background:var(--navy-50)}
+.surecNav__ok:disabled{opacity:.35;cursor:default}
+.surecNav__ok .ic{transform:rotate(180deg)}
+.surecNav__ok--ileri .ic{transform:none}
+/* Dar ekranda gösterge kabına sığmalı: sabit min-width düzen genişliğini
+   zorluyordu (320px'de ölçüldü: sayfa 344px'e çıkıyordu). Numaralar eşit
+   paylaşımlı hâle gelir, oklar bir tık küçülür. */
+@media (max-width:420px){
+  .surecNav{gap:10px}
+  .surecNav__ok{width:40px;height:40px}
+  .surecNav__dots{gap:6px}
+  .surecNav__dots button{min-width:0;flex:1;padding:8px 4px;font-size:12px;letter-spacing:.04em}
+}
+
+@media print{
+  .topbar,.header,.waFab,.toTop,.ctaStrip,.navScrim,.hero__glow{display:none!important}
+  body{background:#fff;color:#000}
+  .reveal{opacity:1;transform:none}
+}
